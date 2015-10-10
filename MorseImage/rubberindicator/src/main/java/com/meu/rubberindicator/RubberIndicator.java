@@ -75,17 +75,12 @@ public class RubberIndicator extends RelativeLayout {
     private PropertyValuesHolder mPvhScale;
     private PropertyValuesHolder mPvhRotation;
 
-    private LinkedList<Boolean> mPendingAnimations;
+    private LinkedList<Integer> mPendingAnimations;
 
     /**
      * Movement Path
      */
     private Path mSmallCirclePath;
-
-    /**
-     * Indicator movement listener
-     */
-    private OnMoveListener mOnMoveListener;
 
     /**
      * Helper values
@@ -179,15 +174,6 @@ public class RubberIndicator extends RelativeLayout {
         setCount(count, mFocusPosition);
     }
 
-    /**
-     * This method must be called before {@link #setCount(int)}, otherwise the focus position will
-     * be set to the default value - zero.
-     * @param pos the focus position
-     */
-    public void setFocusPosition(final int pos) {
-        mFocusPosition = pos;
-    }
-
     public void setCount(int count, int focusPos) {
         if (count < 2) {
             throw new IllegalArgumentException("count must be greater than 2");
@@ -217,35 +203,12 @@ public class RubberIndicator extends RelativeLayout {
         mFocusPosition = focusPos;
     }
 
-    public int getFocusPosition() {
-        return mFocusPosition;
-    }
-
-    public void moveToLeft() {
-        if (mAnim != null && mAnim.isRunning()){
-            mPendingAnimations.add(false);
-            return;
-        }
-        move(false);
-    }
-
-    public void moveToRight() {
-        if (mAnim != null && mAnim.isRunning()){
-            mPendingAnimations.add(true);
-            return;
-        }
-        move(true);
-    }
-
     public void setCurrentPosition(int position) {
-        if (position > getFocusPosition())
-            moveToRight();
-        else if (position < getFocusPosition())
-            moveToLeft();
-    }
-
-    public void setOnMoveListener(final OnMoveListener moveListener) {
-        mOnMoveListener = moveListener;
+        if (mAnim != null && mAnim.isRunning()){
+            mPendingAnimations.add(position);
+            return;
+        }
+        move(position);
     }
 
     private void addSmallCircle() {
@@ -291,22 +254,19 @@ public class RubberIndicator extends RelativeLayout {
         return circleView;
     }
 
-    private int getNextPosition(boolean toRight) {
-        int nextPos = mFocusPosition + (toRight ? 1 : -1);
-        if (nextPos < 0 || nextPos >= mCircleViews.size()) return -1;
-        return nextPos;
-    }
-
     private void swapCircles(int currentPos, int nextPos) {
         CircleView circleView = mCircleViews.get(currentPos);
         mCircleViews.set(currentPos, mCircleViews.get(nextPos));
         mCircleViews.set(nextPos, circleView);
     }
 
-    private void move(final boolean toRight) {
-        final int nextPos = getNextPosition(toRight);
-        if (nextPos == -1) return;
+    private void move(final int nextPos) {
 
+        if (nextPos == mFocusPosition || nextPos < 0 || nextPos >= mCircleViews.size()) {
+            if (!mPendingAnimations.isEmpty())
+                move(mPendingAnimations.removeFirst());
+            return;
+        }
         mSmallCircle = mCircleViews.get(nextPos);
 
         // Calculate the new x coordinate for circles.
@@ -354,6 +314,7 @@ public class RubberIndicator extends RelativeLayout {
             });
         }
 
+        boolean toRight = nextPos > mFocusPosition;
         mPvhRotation.setFloatValues(0, toRight ? -30f : 30f, 0, toRight ? 30f : -30f, 0);
         ObjectAnimator otherAnim = ObjectAnimator.ofPropertyValuesHolder(mSmallCircle, mPvhRotation, mPvhScale);
 
@@ -367,14 +328,6 @@ public class RubberIndicator extends RelativeLayout {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-
-                if (mOnMoveListener != null) {
-                    if (toRight) {
-                        mOnMoveListener.onMovedToRight();
-                    } else {
-                        mOnMoveListener.onMovedToLeft();
-                    }
-                }
 
                 if(!mPendingAnimations.isEmpty()){
                     move(mPendingAnimations.removeFirst());
@@ -391,10 +344,5 @@ public class RubberIndicator extends RelativeLayout {
         mAnim.start();
         swapCircles(mFocusPosition, nextPos);
         mFocusPosition = nextPos;
-    }
-
-    public interface OnMoveListener {
-        void onMovedToLeft();
-        void onMovedToRight();
     }
 }
