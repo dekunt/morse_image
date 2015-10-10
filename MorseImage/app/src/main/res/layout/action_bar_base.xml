@@ -6,7 +6,7 @@
               android:layout_height="match_parent"
               android:layout_gravity="center">
 
-    <com.meu.morseimage.views.AutoTransparentFrameLayout
+    <com.meu.facelayout.views.AutoTransparentFrameLayout
         android:id="@+id/left_button"
         android:paddingLeft="20dp"
         android:layout_width="80dp"
@@ -22,7 +22,7 @@
             android:textSize="14sp"
             android:textColor="@color/white_level_1"
             tools:ignore="RtlHardcoded"/>
-    </com.meu.morseimage.views.AutoTransparentFrameLayout>
+    </com.meu.facelayout.views.AutoTransparentFrameLayout>
 
     <View
         android:layout_width="0dp"
@@ -45,7 +45,7 @@
         android:layout_weight="1"
         android:layout_height="match_parent"/>
 
-    <com.meu.morseimage.views.AutoTransparentFrameLayout
+    <com.meu.facelayout.views.AutoTransparentFrameLayout
         android:id="@+id/right_button"
         android:paddingRight="20dp"
         android:layout_width="80dp"
@@ -60,6 +60,6 @@
             android:textSize="14sp"
             android:textColor="@color/white_level_1"
             tools:ignore="RtlHardcoded"/>
-    </com.meu.morseimage.views.AutoTransparentFrameLayout>
+    </com.meu.facelayout.views.AutoTransparentFrameLayout>
 
 </LinearLayout>

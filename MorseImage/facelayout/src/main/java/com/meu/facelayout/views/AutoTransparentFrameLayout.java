@@ -1,4 +1,4 @@
-package com.meu.morseimage.views;
+package com.meu.facelayout.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
