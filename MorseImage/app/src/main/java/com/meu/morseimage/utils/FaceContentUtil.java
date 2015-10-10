@@ -15,6 +15,10 @@ public class FaceContentUtil
             R.mipmap.ic_face_01, R.mipmap.ic_face_02, R.mipmap.ic_face_03, R.mipmap.ic_face_04,
             R.mipmap.ic_face_05, R.mipmap.ic_face_06, R.mipmap.ic_face_07, R.mipmap.ic_face_08,
             R.mipmap.ic_face_09, R.mipmap.ic_face_10, R.mipmap.ic_face_11, R.mipmap.ic_face_12,
+            R.mipmap.ic_face_13, R.mipmap.ic_face_14, R.mipmap.ic_face_15, R.mipmap.ic_face_16,
+            R.mipmap.ic_face_01, R.mipmap.ic_face_02, R.mipmap.ic_face_03, R.mipmap.ic_face_04,
+            R.mipmap.ic_face_05, R.mipmap.ic_face_06, R.mipmap.ic_face_07, R.mipmap.ic_face_08,
+            R.mipmap.ic_face_09, R.mipmap.ic_face_10, R.mipmap.ic_face_11, R.mipmap.ic_face_12,
             R.mipmap.ic_face_13, R.mipmap.ic_face_14, R.mipmap.ic_face_15, R.mipmap.ic_face_16);
 
 

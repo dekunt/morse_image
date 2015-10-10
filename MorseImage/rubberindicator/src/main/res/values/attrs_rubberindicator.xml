@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RubberIndicator">
+        <attr name="centerBarSize" format="dimension"/>
+        <attr name="centerBarPaddingSide" format="dimension"/>
+        <attr name="circleDistance" format="dimension"/>
+        <attr name="smallCircleSize" format="dimension"/>
+        <attr name="largeCircleSize" format="dimension"/>
+        <attr name="outerCircleSize" format="dimension"/>
+        <attr name="smallCircleColor" format="color"/>
+        <attr name="largeCircleColor" format="color"/>
+        <attr name="outerCircleColor" format="color"/>
+    </declare-styleable>
+</resources>
