@@ -11,15 +11,14 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.meu.facelayout.views.FaceRelativeLayout;
 import com.meu.morseimage.dialog.ImagesDialog;
 import com.meu.morseimage.utils.BitmapUtils;
 import com.meu.morseimage.utils.FileUtils;
-import com.meu.morseimage.views.FaceRelativeLayout;
 
 import java.io.File;
 import java.io.FileOutputStream;

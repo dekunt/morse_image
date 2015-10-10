@@ -1,7 +1,4 @@
-package com.meu.morseimage.views;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.meu.facelayout.views;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -14,9 +11,12 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 
-import com.meu.morseimage.R;
-import com.meu.morseimage.utils.FaceContentUtil;
+import com.meu.facelayout.R;
+import com.meu.facelayout.models.FaceContentUtil;
 import com.meu.rubberindicator.RubberIndicator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class FaceRelativeLayout extends RelativeLayout implements OnItemClickListener
@@ -146,26 +146,26 @@ public class FaceRelativeLayout extends RelativeLayout implements OnItemClickLis
 		vp_face.setAdapter(new ViewPagerAdapter(pageViews));
 		vp_face.setCurrentItem(1);
 		vp_face.addOnPageChangeListener(new OnPageChangeListener()
-        {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
-            {
-            }
+		{
+			@Override
+			public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
+			{
+			}
 
-            @Override
-            public void onPageSelected(int arg0)
-            {
-                // 如果是第一屏或者是最后一屏禁止滑动
-                if (arg0 == pageViews.size() - 1 || arg0 == 0)
-                    vp_face.setCurrentItem(arg0 == 0 ? arg0 + 1 : arg0 - 1);
-                else
-                    pagerIndicator.setCurrentPosition(arg0 - 1);
-            }
+			@Override
+			public void onPageSelected(int arg0)
+			{
+				// 如果是第一屏或者是最后一屏禁止滑动
+				if (arg0 == pageViews.size() - 1 || arg0 == 0)
+					vp_face.setCurrentItem(arg0 == 0 ? arg0 + 1 : arg0 - 1);
+				else
+					pagerIndicator.setCurrentPosition(arg0 - 1);
+			}
 
-            @Override
-            public void onPageScrollStateChanged(int state)
-            {
-            }
-        });
+			@Override
+			public void onPageScrollStateChanged(int state)
+			{
+			}
+		});
 	}
 }

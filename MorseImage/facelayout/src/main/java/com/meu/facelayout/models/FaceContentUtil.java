@@ -1,6 +1,6 @@
-package com.meu.morseimage.utils;
+package com.meu.facelayout.models;
 
-import com.meu.morseimage.R;
+import com.meu.facelayout.R;
 
 import java.util.Arrays;
 import java.util.LinkedList;

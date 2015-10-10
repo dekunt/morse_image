@@ -1,1 +1,1 @@
-include ':app', ':rubberindicator'
+include ':app', ':rubberindicator', ':facelayout'

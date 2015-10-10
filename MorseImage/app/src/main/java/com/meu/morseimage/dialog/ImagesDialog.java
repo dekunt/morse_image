@@ -1,21 +1,9 @@
 package com.meu.morseimage.dialog;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.support.v4.view.ViewPager;
-import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
+import com.meu.facelayout.views.FaceRelativeLayout;
 import com.meu.morseimage.R;
-import com.meu.morseimage.views.FaceRelativeLayout;
-
-import java.util.ArrayList;
 
 /**
  * Created by dekunt on 15/8/26.
