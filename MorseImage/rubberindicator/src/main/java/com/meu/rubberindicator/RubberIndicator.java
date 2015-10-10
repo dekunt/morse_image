@@ -321,7 +321,7 @@ public class RubberIndicator extends RelativeLayout {
         mAnim = new AnimatorSet();
         mAnim.play(smallCircleAnim).with(otherAnim).with(largeCircleAnim).with(outerCircleAnim);
         mAnim.setInterpolator(new AccelerateDecelerateInterpolator());
-        mAnim.setDuration(500);
+        mAnim.setDuration(mPendingAnimations.isEmpty() ? 400 : 200);
         mAnim.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) { }
