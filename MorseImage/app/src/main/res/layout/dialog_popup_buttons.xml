@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/dialog_group"
+    android:background="@android:color/transparent">
+
+    <View
+        android:id="@+id/dialog_outside_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#8000"/>
+
+    <FrameLayout
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:id="@+id/dialog_bottom_group"
+            android:background="#e7ebec"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:ignore="UselessParent">
+
+            <LinearLayout
+                android:id="@+id/button_1"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <View style="@style/horizontal_gray_divider" />
+
+                <TextView
+                    android:id="@+id/button_1_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:background="@drawable/btn_dialog_bg"
+                    android:textColor="#000000"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/button_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <View style="@style/horizontal_gray_divider" />
+
+                <TextView
+                    android:id="@+id/button_2_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:background="@drawable/btn_dialog_bg"
+                    android:textColor="#000000"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
+
+            <TextView
+                android:id="@+id/cancel_button"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:background="@drawable/btn_dialog_bg"
+                android:textColor="#333333"
+                android:text="取消"
+                tools:ignore="HardcodedText"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</RelativeLayout>

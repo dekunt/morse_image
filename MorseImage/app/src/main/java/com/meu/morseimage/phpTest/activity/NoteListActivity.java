@@ -1,20 +1,24 @@
 package com.meu.morseimage.phpTest.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.ListView;
 
 import com.meu.morseimage.BaseActivity;
 import com.meu.morseimage.R;
 import com.meu.morseimage.phpTest.adapter.NoteListAdapter;
+import com.meu.morseimage.phpTest.dialog.PopupButtonsDialog;
 import com.meu.morseimage.phpTest.http.RequestHelper;
 import com.meu.morseimage.phpTest.http.RequestManager;
 import com.meu.morseimage.phpTest.http.ResponseListener;
 import com.meu.morseimage.phpTest.http.Result;
 import com.meu.morseimage.phpTest.http.ServerRequest;
 import com.meu.morseimage.phpTest.http.UrlPath;
+import com.meu.morseimage.phpTest.user.UserInfo;
 import com.meu.morseimage.phpTest.user.bean.NoteBean;
 import com.meu.morseimage.phpTest.user.bean.NoteListBean;
 
@@ -24,7 +28,7 @@ import java.util.HashMap;
 /**
  * Created by dekunt on 15/11/4.
  */
-public class NoteListActivity extends BaseActivity
+public class NoteListActivity extends BaseActivity implements View.OnClickListener
 {
     private static final int PER_PAGE = 20;
 
@@ -43,6 +47,23 @@ public class NoteListActivity extends BaseActivity
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        boolean result = super.onCreateOptionsMenu(menu);
+        setRightButton("退出", this);
+        return result;
+    }
+
+    @Override
+    public void onClick(View v)
+    {
+        switch (v.getId())
+        {
+            case R.id.right_button: onClickLogout(); break;
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -51,7 +72,6 @@ public class NoteListActivity extends BaseActivity
         initData();
         getData();
     }
-
 
     void initView()
     {
@@ -65,6 +85,27 @@ public class NoteListActivity extends BaseActivity
     {
         adapter = new NoteListAdapter(this, new ArrayList<NoteBean>());
         listView.setAdapter(adapter);
+    }
+
+    private void onClickLogout() {
+        final PopupButtonsDialog dialog = new PopupButtonsDialog(this);
+        dialog.setButton1("退出账号", new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                dialog.setOnDismissListener(new DialogInterface.OnDismissListener()
+                {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface)
+                    {
+                        UserInfo.getInstance().clearLoginInfo();
+                        finish();
+                    }
+                });
+            }
+        });
+        dialog.show();
     }
 
     private void getData()
