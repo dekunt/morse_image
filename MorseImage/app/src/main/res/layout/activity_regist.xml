@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_margin="32dp">
+
+
+    <com.meu.morseimage.phpTest.view.CleanableEditText
+        android:id="@+id/et_phone"
+        style="@style/sign_input_style"
+        android:layout_width="match_parent"
+        android:background="@null"
+        android:paddingLeft="5dp"
+        android:singleLine="true"
+        android:inputType="phone"
+        android:gravity="center_vertical"
+        android:hint="请输入手机号码"
+        android:digits="1234567890" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dip"
+        android:background="@drawable/bg_input_heng" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_get_code"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:background="@drawable/btn_common2_selector"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp"
+            android:text="获取验证码"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true" />
+
+        <com.meu.morseimage.phpTest.view.CleanableEditText
+            android:id="@+id/et_code"
+            style="@style/sign_input_style"
+            android:layout_width="match_parent"
+            android:hint="验证码"
+            android:paddingLeft="5dp"
+            android:inputType="phone"
+            android:singleLine="true"
+            android:layout_toLeftOf="@+id/btn_get_code"
+            android:digits="1234567890"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dip"
+        android:background="@drawable/bg_input_heng" />
+
+    <com.meu.morseimage.phpTest.view.CleanableEditText
+        android:id="@+id/et_user_name"
+        style="@style/sign_input_style"
+        android:layout_width="fill_parent"
+        android:background="@null"
+        android:hint="请输入用户名"
+        android:paddingLeft="5dp"
+        android:singleLine="true" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dip"
+        android:background="@drawable/bg_input_heng" />
+
+    <com.meu.morseimage.phpTest.view.CleanableEditText
+        android:id="@+id/et_password"
+        style="@style/sign_input_style"
+        android:layout_width="fill_parent"
+        android:background="@null"
+        android:hint="设置密码"
+        android:paddingLeft="5dp"
+        android:singleLine="true"
+        android:password="true" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dip"
+        android:background="@drawable/bg_input_heng" />
+
+    <Button
+        android:id="@+id/btn_reg"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/btn_common_selector"
+        android:text="注册"
+        android:textColor="@color/white"
+        android:textSize="19sp" />
+
+</LinearLayout>

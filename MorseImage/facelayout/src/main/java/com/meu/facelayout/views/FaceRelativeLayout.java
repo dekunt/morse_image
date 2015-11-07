@@ -100,6 +100,7 @@ public class FaceRelativeLayout extends RelativeLayout implements OnItemClickLis
 	private void Init_View()
     {
 		vp_face = (ViewPager) findViewById(R.id.vp_contains);
+		vp_face.setOffscreenPageLimit(5);
 		pagerIndicator = (RubberIndicator) findViewById(R.id.pager_indicator);
 	}
 

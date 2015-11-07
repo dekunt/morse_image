@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/white">
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:listSelector="@android:color/transparent"
+        android:background="@color/white"
+        android:scrollbars="none" />
+
+    <include
+        layout="@layout/layout_nodata"
+        android:visibility="gone" />
+    <include
+        layout="@layout/dialog_loading"
+        android:visibility="gone"/>
+</FrameLayout>

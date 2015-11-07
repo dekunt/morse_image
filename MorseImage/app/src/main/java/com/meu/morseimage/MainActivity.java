@@ -17,6 +17,9 @@ import android.widget.TextView;
 
 import com.meu.facelayout.views.FaceRelativeLayout;
 import com.meu.morseimage.dialog.ImagesDialog;
+import com.meu.morseimage.phpTest.activity.LoginActivity;
+import com.meu.morseimage.phpTest.activity.NoteListActivity;
+import com.meu.morseimage.phpTest.user.UserInfo;
 import com.meu.morseimage.utils.BitmapUtils;
 import com.meu.morseimage.utils.FileUtils;
 
@@ -84,6 +87,19 @@ public class MainActivity extends BaseActivity
             {
                 if (s != null)
                     onEditTextChanged(s.toString());
+            }
+        });
+
+
+        findViewById(R.id.note_button).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if (UserInfo.getInstance().isLogin())
+                    NoteListActivity.invoke(MainActivity.this);
+                else
+                    LoginActivity.invoke(MainActivity.this);
             }
         });
     }
