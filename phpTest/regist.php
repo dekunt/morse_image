@@ -17,11 +17,11 @@
     }
     mysql_select_db("tanxyzco_db", $con);
     // 检查已注册
-    $result = mysql_query("SELECT phone FROM user WHERE phone='".$sqlPhone."'");
+    $result = mysql_query("SELECT phone FROM user WHERE phone='$sqlPhone'");
     while ($result && $row = mysql_fetch_array($result)){
         done(201);
     }
-    $result = mysql_query("SELECT phone FROM user WHERE userName='".$sqlUserName."'");
+    $result = mysql_query("SELECT phone FROM user WHERE userName='$sqlUserName'");
     while ($result && $row = mysql_fetch_array($result)){
         done(200);
     }
@@ -31,7 +31,7 @@
     // 清除过期数据
     mysql_query("DELETE FROM v_code WHERE createTime<=$deadline");
     // 检查验证码
-    $result2 = mysql_query("SELECT vCode FROM v_code WHERE phone='".$sqlPhone."'");
+    $result2 = mysql_query("SELECT vCode FROM v_code WHERE phone='$sqlPhone'");
     $tempExist = FALSE;
     while ($result2 && $row = mysql_fetch_array($result2)){
         if ($row['vCode'] != $vCode) {
@@ -50,7 +50,7 @@
     
     // 创建用户
     $hash = generateHash();
-    $boolResult = mysql_query("INSERT INTO user (userName, phone, hash, password) VALUES ('".$sqlUserName."', '".$sqlPhone."', '".$hash."', '".$sqlPassword."')");
+    $boolResult = mysql_query("INSERT INTO user (userName, phone, hash, password) VALUES ('$sqlUserName', '$sqlPhone', '$hash', '$sqlPassword')");
     if ($boolResult) {
         $uid = mysql_insert_id();
         $data = array('uid' => "{$uid}", 'userName' => $userName, 'phone' => $phone, 'hash' => $hash);

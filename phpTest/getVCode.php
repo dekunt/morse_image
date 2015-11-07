@@ -10,7 +10,7 @@
 		done(1);
 	}
 	mysql_select_db("tanxyzco_db", $con);
-	$result = mysql_query("SELECT phone FROM user WHERE phone='".$sqlPhone."'");
+	$result = mysql_query("SELECT phone FROM user WHERE phone='$sqlPhone'");
 	$tempExist = FALSE;
 	while ($result && $row = mysql_fetch_array($result)) {
 		if ($action == '1') { //注册
@@ -24,7 +24,7 @@
 
 	$currentTime = time();
 	$deadline = $currentTime - 60;
-	$result2 = mysql_query("SELECT phone FROM v_code WHERE phone='".$sqlPhone."' AND createTime>$deadline");
+	$result2 = mysql_query("SELECT phone FROM v_code WHERE phone='$sqlPhone' AND createTime>$deadline");
 	while ($result2 && $row = mysql_fetch_array($result2)){
 		done(203);
 	}
@@ -52,9 +52,9 @@
 	$currentTime = time();
 	$deadline = $currentTime - 600;
 	// 清除过期数据
-	mysql_query("DELETE FROM v_code WHERE phone='".$sqlPhone."' OR createTime<=$deadline");
+	mysql_query("DELETE FROM v_code WHERE phone='$sqlPhone' OR createTime<=$deadline");
 	// 数据库插入临时数据
-	mysql_query("INSERT INTO v_code (phone, vCode, createTime) VALUES ('".$sqlPhone."', $vCode, $currentTime)");
+	mysql_query("INSERT INTO v_code (phone, vCode, createTime) VALUES ('$sqlPhone', $vCode, $currentTime)");
 	done(0);
 
 	function done($errno)
