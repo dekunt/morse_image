@@ -7,6 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.meu.morseimage.R;
+import com.meu.morseimage.phpTest.activity.NoteEditActivity;
 import com.meu.morseimage.phpTest.user.bean.NoteBean;
 
 import java.util.ArrayList;
@@ -62,9 +63,18 @@ public class NoteListAdapter extends BaseAdapter
         }
         TextView title = (TextView)convertView.findViewById(R.id.title);
         TextView content = (TextView)convertView.findViewById(R.id.content);
-        NoteBean bean = mList.get(position);
+        final NoteBean bean = mList.get(position);
         title.setText(bean.title);
         content.setText(bean.content);
+
+        convertView.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                NoteEditActivity.invoke(mContext, bean);
+            }
+        });
         return convertView;
     }
 

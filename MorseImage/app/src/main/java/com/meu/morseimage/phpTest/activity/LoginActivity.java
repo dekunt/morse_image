@@ -86,14 +86,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener
             ToastUtil.showMsg("输入密码格式错误");
             return;
         }
-        reqReg();
+        reqLogin();
     }
 
 
     /**
-     * 用户注册请求
+     * 用户登录请求
      */
-    private void reqReg() {
+    private void reqLogin() {
         mLoadDialog.show();
         mLoadDialog.setMessage("登录中...");
 

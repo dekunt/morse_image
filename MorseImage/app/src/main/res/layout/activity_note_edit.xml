@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <com.meu.morseimage.phpTest.view.CleanableEditText
+        android:id="@+id/et_title"
+        style="@style/sign_input_style"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@null"
+        android:hint="标题"
+        android:singleLine="true"
+        tools:ignore="HardcodedText"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.8dip"
+        android:background="@drawable/bg_input_heng" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:scrollbarStyle="outsideInset">
+
+        <EditText
+            android:id="@+id/et_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="8dp"
+            android:textSize="17sp"
+            android:textColorHint="@color/text_hint"
+            android:textColor="@color/text_dark"
+            android:inputType="textMultiLine"
+            android:gravity="top"
+            android:background="@null"
+            android:textCursorDrawable="@null"/>
+    </ScrollView>
+
+</LinearLayout>

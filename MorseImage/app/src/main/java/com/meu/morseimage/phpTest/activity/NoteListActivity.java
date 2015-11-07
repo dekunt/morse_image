@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ListView;
@@ -50,7 +51,7 @@ public class NoteListActivity extends BaseActivity implements View.OnClickListen
     public boolean onCreateOptionsMenu(Menu menu)
     {
         boolean result = super.onCreateOptionsMenu(menu);
-        setRightButton("退出", this);
+        setRightButton(R.mipmap.ic_create, this);
         return result;
     }
 
@@ -59,7 +60,7 @@ public class NoteListActivity extends BaseActivity implements View.OnClickListen
     {
         switch (v.getId())
         {
-            case R.id.right_button: onClickLogout(); break;
+            case R.id.right_button: NoteEditActivity.invoke(this); break;
         }
     }
 
@@ -85,6 +86,18 @@ public class NoteListActivity extends BaseActivity implements View.OnClickListen
     {
         adapter = new NoteListAdapter(this, new ArrayList<NoteBean>());
         listView.setAdapter(adapter);
+    }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_MENU:
+                onClickLogout();
+                return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     private void onClickLogout() {
