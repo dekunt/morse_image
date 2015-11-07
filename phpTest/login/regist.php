@@ -3,67 +3,64 @@
     $userName = $_REQUEST['userName'];
     $password = $_REQUEST['password'];
     $vCode = intval($_REQUEST['vCode']);
-    //$sqlPhone = mysql_escape_string($phone);
-    //$sqlUserName = mysql_escape_string($userName);
-    //$sqlPassword = mysql_escape_string($password);
-    $sqlPhone = $phone;
-    $sqlUserName = $userName;
-    $sqlPassword = $password;
     $data = array();
     
-    $con = mysql_connect("localhost","tanxyzco_dk","emp631763");
-    if (!$con) {
-        done(1);
-    }
-    mysql_select_db("tanxyzco_db", $con);
-    // 检查已注册
-    $result = mysql_query("SELECT phone FROM user WHERE phone='$sqlPhone'");
-    while ($result && $row = mysql_fetch_array($result)){
-        done(201);
-    }
-    $result = mysql_query("SELECT phone FROM user WHERE userName='$sqlUserName'");
-    while ($result && $row = mysql_fetch_array($result)){
-        done(200);
-    }
+    $pdo = null;
+    try {
+        $pdo = new PDO('mysql:host=localhost;dbname=tanxyzco_db;charset=utf8', 'tanxyzco_dk', 'emp631763');
+        $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // 使用本地预处理（php5.3.6+默认为false）
 
-    $currentTime = time();
-    $deadline = $currentTime - 600;
-    // 清除过期数据
-    mysql_query("DELETE FROM v_code WHERE createTime<=$deadline");
-    // 检查验证码
-    $result2 = mysql_query("SELECT vCode FROM v_code WHERE phone='$sqlPhone'");
-    $tempExist = FALSE;
-    while ($result2 && $row = mysql_fetch_array($result2)){
-        if ($row['vCode'] != $vCode) {
-            done(204);
+        // 检查已注册
+        $query = $pdo->prepare("SELECT phone FROM user WHERE phone=?");
+        if ($query->execute(array($phone)) && $row = $query->fetch()) {
+            done(201);
         }
-        $tempExist = TRUE;
-    }
-    if (!$tempExist) {
-        done(205);
-    }
+        $query = $pdo->prepare("SELECT phone FROM user WHERE userName=?");
+        if ($query->execute(array($userName)) && $row = $query->fetch()) {
+            done(200);
+        }
 
-    // 检查密码
-    if (strlen($password) > 100) {
-        done(206);
-    }
-    
-    // 创建用户
-    $hash = generateHash();
-    $boolResult = mysql_query("INSERT INTO user (userName, phone, hash, password) VALUES ('$sqlUserName', '$sqlPhone', '$hash', '$sqlPassword')");
-    if ($boolResult) {
-        $uid = mysql_insert_id();
-        $data = array('uid' => "{$uid}", 'userName' => $userName, 'phone' => $phone, 'hash' => $hash);
-        done(0);
-    }
-    else { // 创建失败
+        $currentTime = time();
+        $deadline = $currentTime - 600;
+        // 清除过期数据
+        $pdo->exec("DELETE FROM v_code WHERE createTime<=$deadline");
+        // 检查验证码
+        $query = $pdo->prepare("SELECT vCode FROM v_code WHERE phone=?");
+        if ($query->execute(array($phone)) && $row = $query->fetch()) {
+            if ($row['vCode'] != $vCode) {
+                done(204);
+            }
+        }
+        else {
+            done(205);
+        }
+
+        // 检查密码
+        if (strlen($password) > 100) {
+            done(206);
+        }
+        
+        // 创建用户
+        $hash = generateHash();
+        $query = $pdo->prepare("INSERT INTO user (userName, phone, hash, password) VALUES (?, ?, ?, ?)");
+        if ($query->execute(array($userName, $phone, $hash, $password))) {
+            $uid = $pdo->lastInsertId();
+            $data = array('uid' => "{$uid}", 'userName' => $userName, 'phone' => $phone, 'hash' => $hash);
+            done(0);
+        }
+        else { // 创建失败
+            done(1);
+        }
+
+    } catch (PDOException $e) {
         done(1);
     }
+
     
     function done($errno)
     {
-        global $con, $data;
-        mysql_close($con);
+        global $pdo, $data;
+        $pdo = null;
         $msg = '';
         $status = 1;
         switch ($errno) {
