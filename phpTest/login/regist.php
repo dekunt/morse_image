@@ -11,6 +11,9 @@
         $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // 使用本地预处理（php5.3.6+默认为false）
 
         // 检查已注册
+        if (!is_numeric($phone)) {
+            done(207);
+        }
         $query = $pdo->prepare("SELECT phone FROM user WHERE phone=?");
         if ($query->execute(array($phone)) && $row = $query->fetch()) {
             done(201);
@@ -18,6 +21,9 @@
         $query = $pdo->prepare("SELECT phone FROM user WHERE userName=?");
         if ($query->execute(array($userName)) && $row = $query->fetch()) {
             done(200);
+        }
+        if (is_numeric($userName)) {
+            done(208);
         }
 
         $currentTime = time();
@@ -70,6 +76,8 @@
             case 204: $status = 0; $msg = '验证码错误'; break;
             case 205: $status = 0; $msg = '验证码过期了'; break;
             case 206: $status = 0; $msg = '密码过长'; break;
+            case 207: $status = 0; $msg = '手机号格式不对'; break;
+            case 208: $status = 0; $msg = '用户名格式不对'; break;
             default: $status = 0; $msg = '数据错误'; break;
         }
         $errmsg = array('errno' => $errno, 'msg' => $msg);

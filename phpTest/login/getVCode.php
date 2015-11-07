@@ -9,6 +9,9 @@
         $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // 使用本地预处理（php5.3.6+默认为false）
 
 		// 检查手机号
+        if (!is_numeric($phone)) {
+            done(207);
+        }
         $query = $pdo->prepare("SELECT phone FROM user WHERE phone=?");
         if ($query->execute(array($phone)) && $row = $query->fetch()) {
             if ($action == '1') { //注册
@@ -71,6 +74,7 @@
 			case 201: $status = 0; $msg = '该手机号已注册过了'; break;
 			case 202: $status = 0; $msg = '手机号未注册'; break;
 			case 203: $status = 0; $msg = '你的请求过于频繁，请稍候再试'; break;
+            case 207: $status = 0; $msg = '手机号格式不对'; break;
 			default: $status = 0; $msg = '数据错误，请稍候再试'; break;
 		}
 		$errmsg = array('errno' => $errno, 'msg' => $msg);
