@@ -5,20 +5,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 
 import com.meu.morseimage.BaseActivity;
 import com.meu.morseimage.R;
+import com.meu.morseimage.phpTest.event.NoteEditEvent;
 import com.meu.morseimage.phpTest.http.RequestHelper;
 import com.meu.morseimage.phpTest.http.RequestManager;
 import com.meu.morseimage.phpTest.http.ResponseListener;
 import com.meu.morseimage.phpTest.http.ServerRequest;
 import com.meu.morseimage.phpTest.http.UrlPath;
-import com.meu.morseimage.phpTest.user.bean.BaseBean;
 import com.meu.morseimage.phpTest.user.bean.NoteBean;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by dekunt on 15/11/7.
@@ -67,6 +70,7 @@ public class NoteEditActivity extends BaseActivity
 
         mNoteBean = (NoteBean)getIntent().getSerializableExtra(INTENT_EXTRA_NOTE);
         if (mNoteBean != null) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
             etTitle.setText(mNoteBean.title);
             etContent.setText(mNoteBean.content);
         }
@@ -101,14 +105,22 @@ public class NoteEditActivity extends BaseActivity
         ServerRequest request = new ServerRequest<>(
                 UrlPath.NOTE_EDIT,
                 RequestHelper.buildPublicParams(params),
-                BaseBean.class,
-                new ResponseListener<BaseBean>()
+                NoteBean.class,
+                new ResponseListener<NoteBean>()
                 {
                     @Override
-                    protected void onSucc(String url, BaseBean result) {
+                    public void onNetworkComplete() {
+                        EventBus.getDefault().post(new NoteEditEvent(NoteEditEvent.EditAction.ACTION_RESPOND, null));
+                    }
+
+                    @Override
+                    protected void onSucc(String url, NoteBean result) {
+                        if (result != null)
+                            EventBus.getDefault().post(new NoteEditEvent(NoteEditEvent.EditAction.ACTION_DONE, result));
                     }
                 });
         RequestManager.getInstance(this).addToRequestQueue(request);
+        EventBus.getDefault().post(new NoteEditEvent(NoteEditEvent.EditAction.ACTION_SENT, null));
     }
 
 }

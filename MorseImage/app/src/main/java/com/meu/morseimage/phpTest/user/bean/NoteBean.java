@@ -11,4 +11,20 @@ public class NoteBean implements Serializable
     public String title;
     public String content;
     public String modifyTime;
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NoteBean bean = (NoteBean) o;
+        return noteId.equals(bean.noteId);
+
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return noteId.hashCode();
+    }
 }
