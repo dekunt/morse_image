@@ -56,10 +56,10 @@ public class NoteEditActivity extends BaseActivity
         etContent = (EditText) findViewById(R.id.et_content);
 
         final View scrollView = findViewById(R.id.scrollView);
-        scrollView.post(new Runnable()
+        scrollView.addOnLayoutChangeListener(new View.OnLayoutChangeListener()
         {
             @Override
-            public void run()
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom)
             {
                 etContent.setMinHeight(scrollView.getHeight());
             }

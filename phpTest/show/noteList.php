@@ -1,5 +1,6 @@
 <?php
-    $page = $_REQUEST['page'];
+    $timeLine = array_key_exists('timeLine', $_REQUEST) ? $_REQUEST['timeLine'] : null;
+    $perPage = array_key_exists('perPage', $_REQUEST) ? $_REQUEST['perPage'] : null;
     $uid = $_REQUEST['uid'];
     $hash = $_REQUEST['hash'];
     $data = array();
@@ -29,11 +30,23 @@
 
     function onGotUser($user)
     {
-        global $pdo, $data;
+        global $pdo, $data, $timeLine, $perPage;
         $uid = $user['uid'];
-        $query = $pdo->prepare("SELECT * FROM note WHERE uid=?");
+        if ($timeLine && is_numeric($timeLine) && intval($timeLine) > 0) {
+            $timeLine = intval($timeLine);
+        }
+        else {
+            $timeLine = time();
+        }
+        if ($perPage && is_numeric($perPage) && intval($perPage) > 0) {
+            $perPage = intval($perPage);
+        }
+        else {
+            $perPage = 20;
+        }
+        $query = $pdo->prepare("SELECT * FROM note WHERE uid=? && modifyTime<? ORDER BY modifyTime DESC LIMIT ?");
         $list = array();
-        if ($query->execute(array($uid))) {
+        if ($query->execute(array($uid, $timeLine, $perPage))) {
             foreach ($query->fetchAll() as $row) {
                 $note = array('noteId' => $row['noteId'], 'title' => $row['title'], 'content' => $row['content'], 'modifyTime' => $row['modifyTime']);
                 array_push($list, $note);

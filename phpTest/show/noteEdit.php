@@ -1,5 +1,5 @@
 <?php
-    $noteId = $_REQUEST['noteId'];
+    $noteId = array_key_exists('noteId', $_REQUEST) ? $_REQUEST['noteId'] : null;
     $title = $_REQUEST['title'];
     $content = $_REQUEST['content'];
     $uid = $_REQUEST['uid'];
