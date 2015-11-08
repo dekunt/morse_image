@@ -18,8 +18,6 @@ public class UrlPath
 
     // 备忘列表
     public static final String NOTE_LIST = PATH_BASE + "/show/noteList.php";
-    // 添加备忘
-    public static final String NOTE_ADD = PATH_BASE + "/show/noteAdd.php";
-    // 修改备忘
+    // 添加/修改备忘
     public static final String NOTE_EDIT = PATH_BASE + "/show/noteEdit.php";
 }

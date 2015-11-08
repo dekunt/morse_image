@@ -17,7 +17,10 @@
         // 检查用户
         $query = $pdo->prepare("SELECT * FROM user WHERE uid=?");
         if ($query->execute(array($uid)) && $row = $query->fetch()) {
-            if ($row['hash'] != $hash) {
+            if ($row['hash'] == $hash) {
+               onGotUser($row);
+            }
+            else {
                 done(100);
             }
         }
@@ -25,26 +28,41 @@
             done(101);
         }
 
+    } catch (PDOException $e) {
+        done(1);
+    }
+
+    function onGotUser($user)
+    {
+        global $pdo, $data, $noteId, $title, $content;
+        $uid = $user['uid'];
+
         // 检查noteId
-        $query = $pdo->prepare("SELECT noteId FROM note WHERE noteId=?");
-        if ($query->execute(array($noteId)) && $row = $query->fetch()) {
-            onGotNote($row);
-        }
-        else {
-            done(402);
+        if ($noteId) {
+            $query = $pdo->prepare("SELECT noteId FROM note WHERE noteId=?");
+            if ($query->execute(array($noteId)) && $row = $query->fetch()) {
+                onGotNote($row);
+            }
         }
 
-    } catch (PDOException $e) {
+        $currentTime = time();
+        $query = $pdo->prepare("INSERT INTO note (uid, title, content, modifyTime) VALUES (?, ?, ?, ?)");
+        if ($query->execute(array($uid, $title, $content, $currentTime))) {
+            $noteId = $pdo->lastInsertId();
+            $data = array('noteId' => "{$noteId}", 'uid' => "{$uid}", 'title' => $title, 'content' => $content, 'modifyTime' => $currentTime);
+            done(0);
+        }
         done(1);
     }
 
     function onGotNote($note)
     {
-        global $pdo, $data, $title, $content;
+        global $pdo, $data, $title, $content, $uid;
         $noteId = $note['noteId'];
         $currentTime = time();
         $query = $pdo->prepare("UPDATE note SET title=?, content=?, modifyTime=? WHERE noteId=?");
         if ($query->execute(array($title, $content, $currentTime, $noteId))) {
+            $data = array('noteId' => "{$noteId}", 'uid' => $uid, 'title' => $title, 'content' => $content, 'modifyTime' => $currentTime);
             done(0);
         }
         done(1);
@@ -60,7 +78,6 @@
         switch ($errno) {
             case 0: break;
             case 401: $status = 0; $msg = '内容不能为空'; break;
-            case 402: $status = 0; $msg = '该条目不存在'; break;
             case 100: $status = 0; $msg = '登录信息已过期'; break;
             case 101: $status = 0; $msg = '用户不存在'; break;
             default: $status = 0; $msg = '数据错误'; break;

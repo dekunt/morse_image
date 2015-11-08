@@ -84,8 +84,11 @@ public class NoteEditActivity extends BaseActivity
     {
         mTitle = etTitle.getText().toString();
         mContent = etContent.getText().toString();
-        if (!TextUtils.isEmpty(mTitle) || !TextUtils.isEmpty(mContent))
-            reqEdit();
+        if (TextUtils.isEmpty(mTitle) && TextUtils.isEmpty(mContent))
+            return;
+        if (mNoteBean != null && mTitle.equals(mNoteBean.title) && mContent.equals(mNoteBean.content))
+            return;
+        reqEdit();
     }
 
     private void reqEdit()
@@ -96,7 +99,7 @@ public class NoteEditActivity extends BaseActivity
         params.put("title", mTitle);
         params.put("content", mContent);
         ServerRequest request = new ServerRequest<>(
-                mNoteBean != null ? UrlPath.NOTE_EDIT : UrlPath.NOTE_ADD,
+                UrlPath.NOTE_EDIT,
                 RequestHelper.buildPublicParams(params),
                 BaseBean.class,
                 new ResponseListener<BaseBean>()
