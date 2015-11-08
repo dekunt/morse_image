@@ -6,7 +6,8 @@
     <color name="action_bar_line">#aaaaaa</color>
 
     <color name="white">#ffffff</color>
-    <color name="text_dark">#333333</color>
+    <color name="text_dark">#212121</color>
+    <color name="text_secondary">#646464</color>
     <color name="text_hint">#aaaaaa</color>
     <color name="grey">#999999</color>
     <color name="grey_pressed">#D5D5D5</color>

@@ -40,8 +40,9 @@
             android:paddingLeft="8dp"
             android:textSize="17sp"
             android:textColorHint="@color/text_hint"
-            android:textColor="@color/text_dark"
+            android:textColor="@color/text_secondary"
             android:inputType="textMultiLine"
+            android:lineSpacingMultiplier="1.2"
             android:gravity="top"
             android:background="@null"
             android:textCursorDrawable="@null"/>

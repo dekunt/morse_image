@@ -64,7 +64,17 @@ public class NoteEditActivity extends BaseActivity
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom)
             {
-                etContent.setMinHeight(scrollView.getHeight());
+                if (oldBottom == 0 || Math.abs(bottom - oldBottom) > 200)
+                {
+                    scrollView.post(new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            etContent.setMinHeight(scrollView.getHeight());
+                        }
+                    });
+                }
             }
         });
 

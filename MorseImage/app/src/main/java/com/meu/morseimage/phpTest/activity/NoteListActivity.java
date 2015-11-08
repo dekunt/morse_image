@@ -34,15 +34,13 @@ import de.greenrobot.event.EventBus;
  */
 public class NoteListActivity extends BaseActivity implements View.OnClickListener
 {
-    private static final int PER_PAGE = 20;
+    private static final int PER_PAGE = 10;
 
-    private int pageNow = 1;
     private NoteListAdapter adapter;
-
     private ListView listView;
     private View viewNodata;
     private View loading;
-
+    private boolean isLoading = false;
 
     public static void invoke(Context context)
     {
@@ -95,7 +93,21 @@ public class NoteListActivity extends BaseActivity implements View.OnClickListen
 
     void initData()
     {
-        adapter = new NoteListAdapter(this, new ArrayList<NoteBean>());
+        adapter = new NoteListAdapter(this, new ArrayList<NoteBean>(),
+                new NoteListAdapter.FooterViewListener()
+                {
+                    @Override
+                    public void onShowLoading()
+                    {
+                        getData();
+                    }
+
+                    @Override
+                    public void onClickNoMoreView()
+                    {
+                        NoteEditActivity.invoke(NoteListActivity.this);
+                    }
+                });
         listView.setAdapter(adapter);
     }
 
@@ -116,6 +128,7 @@ public class NoteListActivity extends BaseActivity implements View.OnClickListen
         if (oldIndex >= 0)
             list.remove(oldIndex);
         list.add(0, bean);
+        viewNodata.setVisibility(View.GONE);
         adapter.notifyDataSetChanged();
         listView.setSelection(0);
     }
@@ -154,8 +167,16 @@ public class NoteListActivity extends BaseActivity implements View.OnClickListen
 
     private void getData()
     {
+        if (isLoading)
+            return;
+        isLoading = true;
         HashMap<String, Object> params = new HashMap<>();
-        params.put("page", "" + pageNow);
+        int size = adapter.getList().size();
+        String timeLine = "";
+        if (size > 0)
+            timeLine = adapter.getList().get(size - 1).modifyTime;
+        params.put("timeLine", timeLine);
+        params.put("perPage", PER_PAGE);
         ServerRequest request = new ServerRequest<>(
                 RequestHelper.buildHttpGet(UrlPath.NOTE_LIST, params),
                 NoteListBean.class,
@@ -163,34 +184,34 @@ public class NoteListActivity extends BaseActivity implements View.OnClickListen
 
                     @Override
                     protected void onSucc(String url, NoteListBean result) {
-                        super.onSucc(url, result);
-                        setData(result == null ? null : result.list, false);
+                        if (result != null && result.list != null)
+                            adapter.setNoMoreData(result.list.size() < PER_PAGE);
+                        setData(result == null ? null : result.list);
                     }
 
                     @Override
                     public void onNetworkComplete() {
+                        isLoading = false;
                         loading.setVisibility(View.GONE);
                     }
 
                     @Override
                     protected void onError(String url, Result.ErrorMsg errorMsg) {
-                        setData(null, false);
+                        setData(null);
                     }
 
                     @Override
                     protected void onFail(int errorType, String errorDesc) {
-                        setData(null, false);
+                        setData(null);
                     }
                 });
         RequestManager.getInstance(this).addToRequestQueue(request);
     }
 
 
-    private void setData(ArrayList<NoteBean> tmplist, boolean clear)
+    private void setData(ArrayList<NoteBean> tmplist)
     {
         ArrayList<NoteBean> list = adapter.getList();
-        if (clear)
-            list.clear();
         if (tmplist != null)
             list.addAll(tmplist);
         viewNodata.setVisibility(list.isEmpty() ? View.VISIBLE : View.GONE);
