@@ -10,8 +10,32 @@ public class NoteBean implements Serializable
     public boolean checked = false;
     public String noteId;
     public String title;
-    public String content;
+    private String content;
+    private String simpleContent;
     public String modifyTime;
+
+
+    public String getContent() {
+        return content;
+    }
+
+    public String getSimpleContent() {
+        if (simpleContent == null)
+            simpleContent = simply(content);
+        return simpleContent;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+        this.simpleContent = simply(content);
+    }
+
+    private String simply(String src)
+    {
+        if (src == null || src.length() == 0)
+            return "";
+        return src.trim().replaceAll("\\s+", " ");
+    }
 
     @Override
     public boolean equals(Object o)

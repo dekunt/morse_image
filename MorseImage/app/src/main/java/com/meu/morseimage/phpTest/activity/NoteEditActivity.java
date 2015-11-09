@@ -82,7 +82,7 @@ public class NoteEditActivity extends BaseActivity
         if (mNoteBean != null) {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
             etTitle.setText(mNoteBean.title);
-            etContent.setText(mNoteBean.content);
+            etContent.setText(mNoteBean.getContent());
         }
     }
 
@@ -100,7 +100,7 @@ public class NoteEditActivity extends BaseActivity
         mContent = etContent.getText().toString();
         if (TextUtils.isEmpty(mTitle) && TextUtils.isEmpty(mContent))
             return;
-        if (mNoteBean != null && mTitle.equals(mNoteBean.title) && mContent.equals(mNoteBean.content))
+        if (mNoteBean != null && mTitle.equals(mNoteBean.title) && mContent.equals(mNoteBean.getContent()))
             return;
         reqEdit();
     }

@@ -1,6 +1,7 @@
 package com.meu.morseimage.phpTest.adapter;
 
 import android.app.Activity;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -124,8 +125,8 @@ public class NoteListAdapter extends BaseAdapter
         TextView title = (TextView)convertView.findViewById(R.id.title);
         TextView content = (TextView)convertView.findViewById(R.id.content);
         final NoteBean bean = mList.get(position);
-        title.setText(bean.title);
-        content.setText(bean.content);
+        title.setText(TextUtils.isEmpty(bean.title) ? "(无主题)" : bean.title);
+        content.setText(TextUtils.isEmpty(bean.getSimpleContent()) ? "(无摘要)" : bean.getSimpleContent());
         final View itemGroup = convertView.findViewById(R.id.item_group);
         itemGroup.post(new Runnable()
         {
