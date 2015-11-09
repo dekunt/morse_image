@@ -22,19 +22,22 @@ public class NoteListAdapter extends BaseAdapter
     private ArrayList<NoteBean> mList;
     private ListFooterView footerView;
     private boolean noMoreData = false;
-    private FooterViewListener footerViewListener;
+    private ActionListener actionListener;
 
-    public interface FooterViewListener
+    private boolean isEditing = false;
+
+    public interface ActionListener
     {
+        void onStartEdit();
         void onShowLoading();
         void onClickNoMoreView();
     }
 
-    public NoteListAdapter(Activity context, ArrayList<NoteBean> list, FooterViewListener listener)
+    public NoteListAdapter(Activity context, ArrayList<NoteBean> list, ActionListener listener)
     {
         this.mContext = context;
         this.mList = list;
-        this.footerViewListener = listener;
+        this.actionListener = listener;
     }
 
     public void setNoMoreData(boolean noMoreData)
@@ -48,6 +51,27 @@ public class NoteListAdapter extends BaseAdapter
         if (mList == null)
             mList = new ArrayList<>();
         return mList;
+    }
+
+    public ArrayList<NoteBean> getCheckedItems() {
+        ArrayList<NoteBean> result = new ArrayList<>();
+        for (NoteBean bean : mList) {
+            if (bean.checked)
+                result.add(bean);
+        }
+        return result;
+    }
+
+    public void quitEdit()
+    {
+        isEditing = false;
+        for (NoteBean bean : mList)
+            bean.checked = false;
+        notifyDataSetChanged();
+    }
+
+    public boolean isEditing() {
+        return isEditing;
     }
 
 
@@ -81,15 +105,15 @@ public class NoteListAdapter extends BaseAdapter
                     @Override
                     public void onClick(View v)
                     {
-                        if (footerViewListener != null)
-                            footerViewListener.onClickNoMoreView();
+                        if (!isEditing && actionListener != null)
+                            actionListener.onClickNoMoreView();
                     }
                 });
             }
             footerView = (ListFooterView)convertView;
             footerView.setLoading(!noMoreData);
-            if (!noMoreData && footerViewListener != null)
-                footerViewListener.onShowLoading();
+            if (!noMoreData && actionListener != null)
+                actionListener.onShowLoading();
             return convertView;
         }
 
@@ -102,13 +126,46 @@ public class NoteListAdapter extends BaseAdapter
         final NoteBean bean = mList.get(position);
         title.setText(bean.title);
         content.setText(bean.content);
+        final View itemGroup = convertView.findViewById(R.id.item_group);
+        itemGroup.post(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                itemGroup.setSelected(isEditing && bean.checked);
+            }
+        });
 
         convertView.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                NoteEditActivity.invoke(mContext, bean);
+                if (isEditing)
+                {
+                    bean.checked = !bean.checked;
+                    itemGroup.setSelected(bean.checked);
+                } else
+                {
+                    NoteEditActivity.invoke(mContext, bean);
+                }
+            }
+        });
+        convertView.setOnLongClickListener(new View.OnLongClickListener()
+        {
+            @Override
+            public boolean onLongClick(View v)
+            {
+                if (!isEditing)
+                {
+                    if (actionListener != null)
+                        actionListener.onStartEdit();
+                    isEditing = true;
+                    bean.checked = true;
+                    itemGroup.setSelected(true);
+                    return true;
+                }
+                return false;
             }
         });
         return convertView;

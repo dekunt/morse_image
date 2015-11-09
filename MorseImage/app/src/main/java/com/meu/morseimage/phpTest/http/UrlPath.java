@@ -20,4 +20,6 @@ public class UrlPath
     public static final String NOTE_LIST = PATH_BASE + "/show/noteList.php";
     // 添加/修改备忘
     public static final String NOTE_EDIT = PATH_BASE + "/show/noteEdit.php";
+    // 删除备忘
+    public static final String NOTE_DELETE = PATH_BASE + "/show/noteDelete.php";
 }

@@ -7,6 +7,7 @@ import java.io.Serializable;
  */
 public class NoteBean implements Serializable
 {
+    public boolean checked = false;
     public String noteId;
     public String title;
     public String content;

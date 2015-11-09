@@ -7,7 +7,7 @@
     $data = array();
     
     $pdo = null;
-    if (strlen($title) == 0 && strlen($content)) {
+    if (strlen($title) == 0 && strlen($content) == 0) {
         done(401);
     }
     try {

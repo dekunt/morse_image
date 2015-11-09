@@ -21,6 +21,7 @@ import com.meu.morseimage.phpTest.http.Result;
 import com.meu.morseimage.phpTest.http.ServerRequest;
 import com.meu.morseimage.phpTest.http.UrlPath;
 import com.meu.morseimage.phpTest.user.UserInfo;
+import com.meu.morseimage.phpTest.user.bean.BaseBean;
 import com.meu.morseimage.phpTest.user.bean.NoteBean;
 import com.meu.morseimage.phpTest.user.bean.NoteListBean;
 
@@ -61,7 +62,7 @@ public class NoteListActivity extends BaseActivity implements View.OnClickListen
     {
         switch (v.getId())
         {
-            case R.id.right_button: NoteEditActivity.invoke(this); break;
+            case R.id.right_button: onClickRightBtn(); break;
         }
     }
 
@@ -94,8 +95,15 @@ public class NoteListActivity extends BaseActivity implements View.OnClickListen
     void initData()
     {
         adapter = new NoteListAdapter(this, new ArrayList<NoteBean>(),
-                new NoteListAdapter.FooterViewListener()
+                new NoteListAdapter.ActionListener()
                 {
+                    @Override
+                    public void onStartEdit()
+                    {
+                        setLeftButton(R.mipmap.ic_done, null);
+                        setRightButton(R.mipmap.ic_delete, NoteListActivity.this);
+                    }
+
                     @Override
                     public void onShowLoading()
                     {
@@ -111,12 +119,71 @@ public class NoteListActivity extends BaseActivity implements View.OnClickListen
         listView.setAdapter(adapter);
     }
 
+    private void onClickRightBtn()
+    {
+        if (adapter.isEditing()) {
+            final ArrayList<NoteBean> checkedItems = adapter.getCheckedItems();
+            if (checkedItems.isEmpty())
+                return;
+            PopupButtonsDialog dialog = new PopupButtonsDialog(this);
+            dialog.setButton1("删除选中的" + checkedItems.size() + "项", new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    deleteItems(checkedItems);
+                }
+            });
+            dialog.show();
+        }
+        else {
+            NoteEditActivity.invoke(this);
+        }
+    }
+
+    private void deleteItems(ArrayList<NoteBean> checkedItems)
+    {
+        for (NoteBean bean : checkedItems)
+            adapter.getList().remove(bean);
+        quitEditState();
+
+        String deleteIds = checkedItems.get(0).noteId;
+        for (int i = 1; i < checkedItems.size(); i++) {
+            deleteIds += ("," + checkedItems.get(i).noteId);
+        }
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("deleteIds", deleteIds);
+        ServerRequest request = new ServerRequest<>(
+                RequestHelper.buildHttpGet(UrlPath.NOTE_DELETE, params),
+                BaseBean.class,
+                new ResponseListener<BaseBean>());
+        RequestManager.getInstance(this).addToRequestQueue(request);
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        if (adapter.isEditing())
+            quitEditState();
+        else
+            super.onBackPressed();
+    }
+
+    private void quitEditState()
+    {
+        setLeftButton(R.mipmap.ic_back_button, null);
+        setRightButton(R.mipmap.ic_create, NoteListActivity.this);
+        adapter.quitEdit();
+    }
 
     @SuppressWarnings("unused")
     public void onEventMainThread(NoteEditEvent event)
     {
         switch (event.action) {
-            case ACTION_SENT: loading.setVisibility(View.VISIBLE); break;
+            case ACTION_SENT:
+                loading.setVisibility(View.VISIBLE);
+                viewNodata.setVisibility(View.GONE);
+                break;
             case ACTION_RESPOND: loading.setVisibility(View.GONE); break;
             case ACTION_DONE: onEditFinished(event.noteBean); break;
         }
@@ -128,7 +195,6 @@ public class NoteListActivity extends BaseActivity implements View.OnClickListen
         if (oldIndex >= 0)
             list.remove(oldIndex);
         list.add(0, bean);
-        viewNodata.setVisibility(View.GONE);
         adapter.notifyDataSetChanged();
         listView.setSelection(0);
     }
