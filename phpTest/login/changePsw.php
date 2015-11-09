@@ -6,8 +6,17 @@
     
     $pdo = null;
     try {
-        $pdo = new PDO('mysql:host=localhost;dbname=tanxyzco_db;charset=utf8', 'tanxyzco_dk', 'emp631763');
+        $pdo = new PDO('mysql:host=localhost;dbname=tanxyzco_db;charset=utf8mb4', 'tanxyzco_dk', 'emp631763');
         $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); // 使用本地预处理（php5.3.6+默认为false）
+        $pdo->exec("SET character_set_client = utf8mb4");
+        $pdo->exec("SET character_set_connection = utf8mb4");
+        $pdo->exec("SET character_set_database = utf8mb4");
+        $pdo->exec("SET character_set_results = utf8mb4");
+        $pdo->exec("SET character_set_server = utf8mb4");
+        $pdo->exec("SET character_set_system = utf8mb4");
+        $pdo->exec("SET collation_connection = utf8mb4_unicode_ci");
+        $pdo->exec("SET collation_database = utf8mb4_unicode_ci");
+        $pdo->exec("SET collation_server = utf8mb4_unicode_ci");
 
         // 检查手机号
         $uid = 0;
