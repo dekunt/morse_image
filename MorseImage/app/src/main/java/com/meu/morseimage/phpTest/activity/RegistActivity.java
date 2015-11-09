@@ -124,7 +124,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
             ToastUtil.showMsg("输入手机号码格式错误");
             return;
         }
-        if(StringUtil.isNull(mPassword)){
+        if(StringUtil.isNull(mCode)){
             ToastUtil.showMsg("手机验证码不能为空");
             return;
         }

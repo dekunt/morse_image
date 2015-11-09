@@ -44,16 +44,20 @@
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		// 执行HTTP请求验证码
 		curl_setopt($ch , CURLOPT_URL , $url);
-		//$res = curl_exec($ch);
-		//$resArray = json_decode($res);
-		//if ($resArray == null || array_key_exists('errNum', $resArray)) {
-		//	done(1);
-		//}
+		$res = curl_exec($ch);
+		$resArray = json_decode($res);
+		if ($res == null || ($resArray != null && array_key_exists('errNum', $resArray))) {
+			done(1);
+		}
 
 		$currentTime = time();
 		$deadline = $currentTime - 600;
 		// 清除过期数据
         $pdo->exec("DELETE FROM v_code WHERE createTime<=$deadline");
+        if ($action != '1') {
+        	$query = $pdo->prepare("DELETE FROM v_code WHERE phone=?");
+        	$query->execute(array($phone));
+        }
 		// 数据库插入临时数据
         $query = $pdo->prepare("INSERT INTO v_code (phone, vCode, createTime) VALUES (?, ?, ?)");
         $query->execute(array($phone, $vCode, $currentTime));

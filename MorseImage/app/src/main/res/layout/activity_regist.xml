@@ -11,7 +11,6 @@
         style="@style/sign_input_style"
         android:layout_width="match_parent"
         android:background="@null"
-        android:paddingLeft="5dp"
         android:singleLine="true"
         android:inputType="phone"
         android:gravity="center_vertical"
@@ -43,11 +42,10 @@
             style="@style/sign_input_style"
             android:layout_width="match_parent"
             android:hint="验证码"
-            android:paddingLeft="5dp"
             android:inputType="phone"
+            android:digits="1234567890"
             android:singleLine="true"
-            android:layout_toLeftOf="@+id/btn_get_code"
-            android:digits="1234567890"/>
+            android:layout_toLeftOf="@+id/btn_get_code"/>
 
     </RelativeLayout>
 
@@ -62,7 +60,6 @@
         android:layout_width="fill_parent"
         android:background="@null"
         android:hint="请输入用户名"
-        android:paddingLeft="5dp"
         android:singleLine="true" />
 
     <View
@@ -76,7 +73,6 @@
         android:layout_width="fill_parent"
         android:background="@null"
         android:hint="设置密码"
-        android:paddingLeft="5dp"
         android:singleLine="true"
         android:password="true" />
 
