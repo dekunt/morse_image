@@ -3,5 +3,6 @@
     <string name="login_title">登录</string>
     <string name="change_psw_title">修改密码</string>
     <string name="regist_title">注册</string>
-    <string name="note_list_title">我的笔记</string>
+    <string name="note_list_title">我的记事</string>
+    <string name="note_edit_title">记事</string>
 </resources>
