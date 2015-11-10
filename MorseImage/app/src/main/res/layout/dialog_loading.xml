@@ -2,21 +2,20 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/loading"
     android:layout_width="160dp"
-    android:layout_height="140dp"
+    android:layout_height="110dp"
     android:padding="20dp"
-    android:layout_marginBottom="40dp"
+    android:layout_marginBottom="20dp"
     android:background="@drawable/dialog_border"
     android:orientation="vertical"
     android:gravity="center"
     android:layout_gravity="center">
 
     <ProgressBar
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
         android:indeterminateDrawable="@drawable/dialog_loading_animation"
         android:indeterminateOnly="true"
-        android:indeterminateBehavior="repeat"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center_horizontal"/>
 
     <TextView
         android:id="@+id/msg"
