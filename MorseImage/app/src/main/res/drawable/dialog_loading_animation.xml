@@ -18,4 +18,11 @@
   <item android:duration="100" android:drawable="@mipmap/loading15" />
   <item android:duration="100" android:drawable="@mipmap/loading16" />
   <item android:duration="100" android:drawable="@mipmap/loading17" />
+  <item android:duration="100" android:drawable="@mipmap/loading18" />
+  <item android:duration="100" android:drawable="@mipmap/loading19" />
+  <item android:duration="100" android:drawable="@mipmap/loading20" />
+  <item android:duration="100" android:drawable="@mipmap/loading21" />
+  <item android:duration="100" android:drawable="@mipmap/loading22" />
+  <item android:duration="100" android:drawable="@mipmap/loading23" />
+  <item android:duration="100" android:drawable="@mipmap/loading24" />
 </animation-list>

@@ -1,29 +1,35 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/loading"
-    android:layout_width="160dp"
-    android:layout_height="110dp"
-    android:padding="20dp"
-    android:layout_marginBottom="20dp"
-    android:background="@drawable/dialog_border"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:gravity="center"
     android:layout_gravity="center">
 
-    <ProgressBar
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:indeterminateDrawable="@drawable/dialog_loading_animation"
-        android:indeterminateOnly="true"
-        android:layout_gravity="center_horizontal"/>
+    <FrameLayout
+        android:layout_width="160dp"
+        android:layout_height="110dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/dialog_border"
+        android:padding="20dp"
+        android:gravity="center">
 
-    <TextView
-        android:id="@+id/msg"
-        android:background="@color/loading_dialog_bg"
-        android:layout_width="match_parent"
-        android:layout_gravity="bottom"
-        android:gravity="center"
-        android:layout_height="30dp"
-        android:textColor="@color/white_level_1"
-        android:text="正在加载..."/>
+        <ProgressBar
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:indeterminateDrawable="@drawable/dialog_loading_animation"
+            android:indeterminateOnly="true"
+            android:layout_gravity="center_horizontal"/>
+
+        <TextView
+            android:id="@+id/msg"
+            android:background="@color/loading_dialog_bg"
+            android:layout_width="match_parent"
+            android:layout_gravity="bottom"
+            android:gravity="center"
+            android:layout_height="30dp"
+            android:textColor="@color/loading_dialog_text"
+            android:text="正在加载..."/>
+    </FrameLayout>
 </FrameLayout>
