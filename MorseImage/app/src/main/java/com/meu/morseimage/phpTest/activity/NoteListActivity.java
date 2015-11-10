@@ -263,11 +263,13 @@ public class NoteListActivity extends BaseActivity implements View.OnClickListen
 
                     @Override
                     protected void onError(String url, Result.ErrorMsg errorMsg) {
+                        super.onError(url, errorMsg);
                         setData(null);
                     }
 
                     @Override
                     protected void onFail(int errorType, String errorDesc) {
+                        super.onFail(errorType, errorDesc);
                         setData(null);
                     }
                 });

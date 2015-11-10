@@ -1,6 +1,7 @@
 package com.meu.morseimage.phpTest.http;
 
 
+import com.meu.morseimage.phpTest.user.UserInfo;
 import com.meu.morseimage.phpTest.util.ToastUtil;
 
 public class ResponseListener<T> {
@@ -37,6 +38,8 @@ public class ResponseListener<T> {
      */
     protected void onError(String url, Result.ErrorMsg errorMsg) {
         ToastUtil.showMsg(errorMsg.getMsg());
+        if (errorMsg.getErrno() == 100)
+            UserInfo.getInstance().clearLoginInfo();
     }
 
     /**

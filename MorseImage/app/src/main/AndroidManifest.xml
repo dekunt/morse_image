@@ -27,7 +27,8 @@
         <activity
             android:name=".phpTest.activity.NoteListActivity"
             android:label="@string/note_list_title"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustNothing"/>
 
         <activity
             android:name=".phpTest.activity.LoginActivity"
