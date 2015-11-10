@@ -53,7 +53,7 @@ public class NoteListActivity extends BaseActivity implements View.OnClickListen
     public boolean onCreateOptionsMenu(Menu menu)
     {
         boolean result = super.onCreateOptionsMenu(menu);
-        setRightButton(R.mipmap.ic_create, this);
+        setRightButton(R.mipmap.ic_edit, this);
         return result;
     }
 
@@ -171,8 +171,8 @@ public class NoteListActivity extends BaseActivity implements View.OnClickListen
 
     private void quitEditState()
     {
-        setLeftButton(R.mipmap.ic_back_button, null);
-        setRightButton(R.mipmap.ic_create, NoteListActivity.this);
+        setLeftButton(R.mipmap.ic_arrow_back, null);
+        setRightButton(R.mipmap.ic_edit, NoteListActivity.this);
         adapter.quitEdit();
     }
 

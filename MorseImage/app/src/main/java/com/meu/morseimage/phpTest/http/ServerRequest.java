@@ -166,7 +166,7 @@ public class ServerRequest<T> extends Request<Result>
                     result.setUnknownBody(new Result.UnknownBody(json));
                     break;
             }
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             result.setStatus(Result.STATUS_UNKNOWN);
             result.setUnknownBody(new Result.UnknownBody(json));

@@ -35,37 +35,10 @@ public class LoadDialog extends Dialog
         this.setCanceledOnTouchOutside(false);
     }
 
-    @Override
-    public void show() {
-        super.show();
-        loading.setBackgroundResource(R.drawable.dialog_border);
-        loading.setPadding(30,0,30,10);
-    }
-
-    public void show(boolean hasborder){
-        if(!hasborder){
-            super.show();
-            loading.setBackgroundResource(R.color.transparent);
-            loading.setPadding(0,0,0,0);
-        }else {
-            show();
-        }
-    }
     public void setMessage(String str) {
         if (!TextUtils.isEmpty(str)) {
             msg_text.setText(str);
         }
         PublicMethod.KeyBoardHidden((Activity) mContext);
     }
-
-    /**
-     * 即使弹出加载框也显示键盘
-     *
-     * @param str
-     */
-    public void setMessageDisplayKey(String str) {
-        msg_text.setText(str);
-    }
-
-
 }

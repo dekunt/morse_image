@@ -13,8 +13,7 @@
     <color name="grey_pressed">#D5D5D5</color>
     <color name="grey_line">#cfcfcf</color>
 
-    <color name="transparent">#00000000</color>
-    <color name="transparent_white">#AAffffff</color>
+    <color name="loading_dialog_bg">#333333</color>
     <color name="picDialogselectBackgroudColor">#EBF5FD</color>
     <color name="picDialogBackgroudColor">#f5f5f5</color>
 
