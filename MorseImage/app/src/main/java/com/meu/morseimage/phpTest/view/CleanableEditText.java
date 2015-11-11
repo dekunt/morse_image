@@ -26,7 +26,7 @@ public class CleanableEditText extends EditText
 
     private void init() {
         drawableLeft = getCompoundDrawables()[0];
-        drawableRight = getResources().getDrawable(R.mipmap.btn_edittext_clean);
+        drawableRight = getResources().getDrawable(R.mipmap.ic_edit_clean);
         drawableRight.setBounds(0, 0, drawableRight.getIntrinsicWidth(), drawableRight.getIntrinsicHeight());
         addTextChangedListener(new SimpleTextWatcher() {
             @Override
