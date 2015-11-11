@@ -11,8 +11,8 @@ import android.widget.EditText;
 
 import com.meu.morseimage.BaseActivity;
 import com.meu.morseimage.R;
+import com.meu.morseimage.phpTest.dialog.AlertDialog;
 import com.meu.morseimage.phpTest.dialog.LoadDialog;
-import com.meu.morseimage.phpTest.dialog.PopupButtonsDialog;
 import com.meu.morseimage.phpTest.event.NoteEditEvent;
 import com.meu.morseimage.phpTest.http.RequestHelper;
 import com.meu.morseimage.phpTest.http.RequestManager;
@@ -124,8 +124,8 @@ public class NoteEditActivity extends BaseActivity
     {
         if (checkEdit())
         {
-            PopupButtonsDialog dialog = new PopupButtonsDialog(this);
-            dialog.setButton1("放弃编辑", new View.OnClickListener()
+            AlertDialog dialog = new AlertDialog(this);
+            dialog.setTitle("舍弃本次编辑的内容", new View.OnClickListener()
             {
                 @Override
                 public void onClick(View v)

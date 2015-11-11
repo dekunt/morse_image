@@ -14,7 +14,7 @@
     <color name="grey_line">#cfcfcf</color>
 
     <color name="loading_dialog_bg">#22000000</color>
-    <color name="picDialogselectBackgroudColor">#EBF5FD</color>
-    <color name="picDialogBackgroudColor">#f5f5f5</color>
+    <color name="btn_dialog_pressed">#EBF5FD</color>
+    <color name="btn_dialog">#f5f5f5</color>
 
 </resources>

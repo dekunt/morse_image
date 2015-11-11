@@ -34,12 +34,6 @@ public class PopupButtonsDialog extends BaseDialog
         init();
     }
 
-    public PopupButtonsDialog(Context context, int theme)
-    {
-        super(context, theme);
-        init();
-    }
-
     private void init()
     {
         setContentView(R.layout.dialog_popup_buttons);
@@ -93,18 +87,11 @@ public class PopupButtonsDialog extends BaseDialog
         button1TextView.setText(title);
     }
 
-    public void setButton1(int titleResId, View.OnClickListener listener)
-    {
-        this.button1Listener = listener;
-        button1.setVisibility(View.VISIBLE);
-        button1TextView.setText(titleResId);
-    }
-
-    public void setButton2(int titleResId, View.OnClickListener listener)
+    public void setButton2(String title, View.OnClickListener listener)
     {
         this.button2Listener = listener;
         button2.setVisibility(View.VISIBLE);
-        button2TextView.setText(titleResId);
+        button2TextView.setText(title);
     }
 
     public void setOnClickCanceListener(View.OnClickListener onClickListener) {

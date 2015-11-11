@@ -2,9 +2,9 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:state_pressed="true"
-        android:drawable="@color/btn_dialog_pressed">
+        android:drawable="@drawable/btn_dialog_corner_lb_pressed">
     </item>
     <item
-        android:drawable="@color/btn_dialog">
+        android:drawable="@drawable/btn_dialog_corner_lb_nomal">
     </item>
 </selector>
