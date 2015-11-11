@@ -50,7 +50,7 @@ public class MainActivity extends BaseActivity
         textLayout = (LinearLayout)findViewById(R.id.text_layout);
         imageView = (ImageView)findViewById(R.id.image_view);
 
-        resetImage(R.mipmap.ic_face_01);
+        resetImage(R.mipmap.ic_face_02);
         shareGroup.setOnClickListener(new View.OnClickListener()
         {
             @Override

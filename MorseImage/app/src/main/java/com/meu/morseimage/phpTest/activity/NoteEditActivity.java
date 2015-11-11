@@ -4,12 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 
 import com.meu.morseimage.BaseActivity;
 import com.meu.morseimage.R;
+import com.meu.morseimage.phpTest.dialog.LoadDialog;
+import com.meu.morseimage.phpTest.dialog.PopupButtonsDialog;
 import com.meu.morseimage.phpTest.event.NoteEditEvent;
 import com.meu.morseimage.phpTest.http.RequestHelper;
 import com.meu.morseimage.phpTest.http.RequestManager;
@@ -17,6 +20,7 @@ import com.meu.morseimage.phpTest.http.ResponseListener;
 import com.meu.morseimage.phpTest.http.ServerRequest;
 import com.meu.morseimage.phpTest.http.UrlPath;
 import com.meu.morseimage.phpTest.user.bean.NoteBean;
+import com.meu.morseimage.phpTest.util.ToastUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,6 +40,7 @@ public class NoteEditActivity extends BaseActivity
     private String mTitle;
     private String mContent;
     private NoteBean mNoteBean;
+    private LoadDialog mLoadDialog;
 
     public static void invoke(Context context)
     {
@@ -57,6 +62,7 @@ public class NoteEditActivity extends BaseActivity
         setContentView(R.layout.activity_note_edit);
         etTitle = (EditText) findViewById(R.id.et_title);
         etContent = (EditText) findViewById(R.id.et_content);
+        mLoadDialog = new LoadDialog(this);
 
         final View scrollView = findViewById(R.id.scrollView);
         scrollView.addOnLayoutChangeListener(new View.OnLayoutChangeListener()
@@ -87,26 +93,70 @@ public class NoteEditActivity extends BaseActivity
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        boolean result = super.onCreateOptionsMenu(menu);
+        setLeftButton(R.mipmap.ic_close, null);
+        setRightButton(R.mipmap.ic_done, new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                onFinishEdit();
+            }
+        });
+        return result;
+    }
+
+    private boolean checkEdit()
+    {
+        mTitle = etTitle.getText().toString();
+        mContent = etContent.getText().toString();
+        if (TextUtils.isEmpty(mTitle) && TextUtils.isEmpty(mContent))
+            return false;
+        else if (mNoteBean != null && mTitle.equals(mNoteBean.title) && mContent.equals(mNoteBean.getContent()))
+            return false;
+        return true;
+    }
+
+    @Override
     public void finish()
     {
-        onFinishEdit();
-        super.finish();
+        if (checkEdit())
+        {
+            PopupButtonsDialog dialog = new PopupButtonsDialog(this);
+            dialog.setButton1("放弃编辑", new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    NoteEditActivity.super.finish();
+                }
+            });
+            dialog.show();
+        }
+        else {
+            super.finish();
+        }
     }
 
 
     private void onFinishEdit()
     {
-        mTitle = etTitle.getText().toString();
-        mContent = etContent.getText().toString();
-        if (TextUtils.isEmpty(mTitle) && TextUtils.isEmpty(mContent))
-            return;
-        if (mNoteBean != null && mTitle.equals(mNoteBean.title) && mContent.equals(mNoteBean.getContent()))
-            return;
-        reqEdit();
+        if (checkEdit()) {
+            reqEdit();
+        }
+        else if (TextUtils.isEmpty(mTitle) && TextUtils.isEmpty(mContent)) {
+            ToastUtil.showMsg("填点内容吧");
+        }
+        else {
+            super.finish();
+        }
     }
 
     private void reqEdit()
     {
+        mLoadDialog.show();
         Map<String, Object> params = new HashMap<>();
         if (mNoteBean != null)
             params.put("noteId", mNoteBean.noteId);
@@ -120,17 +170,17 @@ public class NoteEditActivity extends BaseActivity
                 {
                     @Override
                     public void onNetworkComplete() {
-                        EventBus.getDefault().post(new NoteEditEvent(NoteEditEvent.EditAction.ACTION_RESPOND, null));
+                        mLoadDialog.cancel();
                     }
 
                     @Override
                     protected void onSucc(String url, NoteBean result) {
                         if (result != null)
-                            EventBus.getDefault().post(new NoteEditEvent(NoteEditEvent.EditAction.ACTION_DONE, result));
+                            EventBus.getDefault().post(new NoteEditEvent(result));
+                        NoteEditActivity.super.finish();
                     }
                 });
         RequestManager.getInstance(this).addToRequestQueue(request);
-        EventBus.getDefault().post(new NoteEditEvent(NoteEditEvent.EditAction.ACTION_SENT, null));
     }
 
 }

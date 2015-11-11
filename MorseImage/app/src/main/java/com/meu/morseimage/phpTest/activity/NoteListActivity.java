@@ -179,17 +179,8 @@ public class NoteListActivity extends BaseActivity implements View.OnClickListen
     @SuppressWarnings("unused")
     public void onEventMainThread(NoteEditEvent event)
     {
-        switch (event.action) {
-            case ACTION_SENT:
-                loading.setVisibility(View.VISIBLE);
-                viewNodata.setVisibility(View.GONE);
-                break;
-            case ACTION_RESPOND: loading.setVisibility(View.GONE); break;
-            case ACTION_DONE: onEditFinished(event.noteBean); break;
-        }
-    }
-
-    private void onEditFinished(NoteBean bean) {
+        viewNodata.setVisibility(View.GONE);
+        NoteBean bean = event.noteBean;
         ArrayList<NoteBean> list = adapter.getList();
         int oldIndex = list.indexOf(bean);
         if (oldIndex >= 0)

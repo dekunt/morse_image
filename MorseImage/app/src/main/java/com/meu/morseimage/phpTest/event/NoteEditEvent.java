@@ -7,14 +7,10 @@ import com.meu.morseimage.phpTest.user.bean.NoteBean;
  */
 public class NoteEditEvent
 {
-    public enum EditAction {ACTION_SENT, ACTION_RESPOND, ACTION_DONE};
-
-    public EditAction action;
     public NoteBean noteBean;
 
-    public NoteEditEvent(EditAction action, NoteBean noteBean)
+    public NoteEditEvent(NoteBean noteBean)
     {
-        this.action = action;
         this.noteBean = noteBean;
     }
 }

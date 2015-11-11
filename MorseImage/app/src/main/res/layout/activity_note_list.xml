@@ -17,7 +17,14 @@
     <include
         layout="@layout/layout_nodata"
         android:visibility="gone" />
-    <include
-        layout="@layout/dialog_loading"
-        android:visibility="gone"/>
+
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="75dp"
+        android:layout_height="25dp"
+        android:layout_marginBottom="24dp"
+        android:indeterminateDrawable="@drawable/dialog_loading_animation"
+        android:indeterminateOnly="true"
+        android:layout_gravity="center"/>
+
 </FrameLayout>
