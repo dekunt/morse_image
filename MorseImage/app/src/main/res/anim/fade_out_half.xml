@@ -4,5 +4,5 @@
        android:fillAfter="true"
        android:interpolator="@android:anim/accelerate_interpolator"
        android:fromAlpha="1.0"
-       android:toAlpha="0"
+       android:toAlpha="0.5"
        android:duration="300"/>

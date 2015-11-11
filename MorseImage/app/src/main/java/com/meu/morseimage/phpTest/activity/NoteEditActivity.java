@@ -1,5 +1,6 @@
 package com.meu.morseimage.phpTest.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -44,15 +45,23 @@ public class NoteEditActivity extends BaseActivity
 
     public static void invoke(Context context)
     {
-        Intent intent = new Intent(context, NoteEditActivity.class);
-        context.startActivity(intent);
+        invoke(context, null);
     }
 
     public static void invoke(Context context, NoteBean bean)
     {
         Intent intent = new Intent(context, NoteEditActivity.class);
-        intent.putExtra(INTENT_EXTRA_NOTE, bean);
+        if (bean != null)
+            intent.putExtra(INTENT_EXTRA_NOTE, bean);
         context.startActivity(intent);
+        if (context instanceof Activity)
+            ((Activity)context).overridePendingTransition(R.anim.push_up_in, R.anim.fade_out_half);
+    }
+
+    private void superFinish()
+    {
+        super.finish();
+        overridePendingTransition(R.anim.fade_in_half, R.anim.push_up_out);
     }
 
     @Override
@@ -130,13 +139,13 @@ public class NoteEditActivity extends BaseActivity
                 @Override
                 public void onClick(View v)
                 {
-                    NoteEditActivity.super.finish();
+                    NoteEditActivity.this.superFinish();
                 }
             });
             dialog.show();
         }
         else {
-            super.finish();
+            superFinish();
         }
     }
 
@@ -150,7 +159,7 @@ public class NoteEditActivity extends BaseActivity
             ToastUtil.showMsg("填点内容吧");
         }
         else {
-            super.finish();
+            superFinish();
         }
     }
 
@@ -177,7 +186,7 @@ public class NoteEditActivity extends BaseActivity
                     protected void onSucc(String url, NoteBean result) {
                         if (result != null)
                             EventBus.getDefault().post(new NoteEditEvent(result));
-                        NoteEditActivity.super.finish();
+                        NoteEditActivity.this.superFinish();
                     }
                 });
         RequestManager.getInstance(this).addToRequestQueue(request);
