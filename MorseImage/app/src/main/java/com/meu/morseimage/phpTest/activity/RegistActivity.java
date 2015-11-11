@@ -145,7 +145,6 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
      */
     private void reqReg() {
         mLoadDialog.show();
-        mLoadDialog.setMessage("请求中...");
 
         Map<String, Object> params = new HashMap<>();
         params.put("phone", mPhoneNum);

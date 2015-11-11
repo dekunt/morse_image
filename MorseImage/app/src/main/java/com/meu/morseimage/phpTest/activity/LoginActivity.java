@@ -95,7 +95,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener
      */
     private void reqLogin() {
         mLoadDialog.show();
-        mLoadDialog.setMessage("登录中...");
 
         Map<String, Object> params = new HashMap<>();
         params.put("nameOrPhone", mUserName);

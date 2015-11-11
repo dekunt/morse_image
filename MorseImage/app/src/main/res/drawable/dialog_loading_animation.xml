@@ -6,23 +6,17 @@
   <item android:duration="100" android:drawable="@mipmap/loading03" />
   <item android:duration="100" android:drawable="@mipmap/loading04" />
   <item android:duration="100" android:drawable="@mipmap/loading05" />
-  <item android:duration="100" android:drawable="@mipmap/loading06" />
   <item android:duration="100" android:drawable="@mipmap/loading07" />
-  <item android:duration="100" android:drawable="@mipmap/loading08" />
   <item android:duration="100" android:drawable="@mipmap/loading09" />
   <item android:duration="100" android:drawable="@mipmap/loading10" />
   <item android:duration="100" android:drawable="@mipmap/loading11" />
   <item android:duration="100" android:drawable="@mipmap/loading12" />
   <item android:duration="100" android:drawable="@mipmap/loading13" />
-  <item android:duration="100" android:drawable="@mipmap/loading14" />
   <item android:duration="100" android:drawable="@mipmap/loading15" />
-  <item android:duration="100" android:drawable="@mipmap/loading16" />
   <item android:duration="100" android:drawable="@mipmap/loading17" />
   <item android:duration="100" android:drawable="@mipmap/loading18" />
   <item android:duration="100" android:drawable="@mipmap/loading19" />
   <item android:duration="100" android:drawable="@mipmap/loading20" />
   <item android:duration="100" android:drawable="@mipmap/loading21" />
-  <item android:duration="100" android:drawable="@mipmap/loading22" />
   <item android:duration="100" android:drawable="@mipmap/loading23" />
-  <item android:duration="100" android:drawable="@mipmap/loading24" />
 </animation-list>
