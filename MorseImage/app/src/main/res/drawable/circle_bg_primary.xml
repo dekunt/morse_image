@@ -1,24 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<selector
+<layer-list
     xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item android:state_pressed="true" >
-        <shape android:shape="oval">
-            <solid android:color="@color/colorPrimaryDark"/>
-        </shape>
-    </item>
-
-    <item android:state_focused="true" >
-        <shape android:shape="oval">
-            <solid android:color="@color/colorPrimaryDark"/>
-        </shape>
-    </item>
-
     <item>
-        <shape android:shape="oval">
-            <solid android:color="@color/colorPrimary"/>
-        </shape>
+        <bitmap android:src="@mipmap/ic_circle_shadow_bg"/>
     </item>
 
-</selector>
+    <item
+        android:left="6dp"
+        android:right="6dp"
+        android:top="6dp"
+        android:bottom="6dp">
+        <selector>
+            <item android:state_pressed="true" >
+                <shape android:shape="oval">
+                    <solid android:color="@color/colorPrimaryDark"/>
+                </shape>
+            </item>
+
+            <item android:state_focused="true" >
+                <shape android:shape="oval">
+                    <solid android:color="@color/colorPrimaryDark"/>
+                </shape>
+            </item>
+
+            <item>
+                <shape android:shape="oval">
+                    <solid android:color="@color/colorPrimary"/>
+                </shape>
+            </item>
+        </selector>
+    </item>
+</layer-list>

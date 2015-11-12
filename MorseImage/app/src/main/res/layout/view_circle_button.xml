@@ -12,8 +12,8 @@
         android:src="@mipmap/ic_edit"
         android:scaleType="center"
         android:layout_gravity="center_horizontal"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:background="@drawable/circle_bg_primary"/>
     
     <TextView

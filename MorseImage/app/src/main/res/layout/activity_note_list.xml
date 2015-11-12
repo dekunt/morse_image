@@ -11,8 +11,7 @@
         android:divider="@null"
         android:listSelector="@android:color/transparent"
         android:background="@color/white"
-        android:scrollbars="vertical"
-        android:scrollbarStyle="outsideOverlay"/>
+        android:scrollbars="none"/>
 
     <include
         layout="@layout/layout_nodata"
