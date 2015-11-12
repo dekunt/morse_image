@@ -23,7 +23,7 @@
                 android:id="@+id/image_view"
                 android:layout_width="160dp"
                 android:layout_height="160dp"
-                android:src="@mipmap/ic_face_01"
+                android:src="@mipmap/ic_face_02"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
                 tools:ignore="ContentDescription"/>
@@ -43,25 +43,56 @@
     <EditText
         android:id="@+id/edit_text"
         android:layout_width="match_parent"
-        android:layout_margin="20dp"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/text_dark"
+        android:textColorHint="@color/text_hint"
+        android:hint="Morse翻译框"
+        android:background="@drawable/bg_edit_text"
         android:inputType="text"/>
-
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/note_button"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_width="120dp"
-            android:layout_height="50dp"
-            android:text="PHP Test: 笔记"
-            android:textColor="@color/white"
-            tools:ignore="HardcodedText"
-            android:background="@color/colorPrimary"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="60dp"
+            android:orientation="horizontal"
+            android:layout_gravity="bottom">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <include layout="@layout/view_circle_button"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <include
+                android:id="@+id/note_button"
+                layout="@layout/view_circle_button"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <include layout="@layout/view_circle_button"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
     </FrameLayout>
     
 </LinearLayout>

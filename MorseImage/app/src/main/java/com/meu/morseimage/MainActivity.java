@@ -92,7 +92,10 @@ public class MainActivity extends SwipeActivity
         });
 
 
-        findViewById(R.id.note_button).setOnClickListener(new View.OnClickListener()
+        View noteButton = findViewById(R.id.note_button);
+        ((ImageView)noteButton.findViewById(R.id.btn_image)).setImageResource(R.mipmap.ic_note);
+        ((TextView)noteButton.findViewById(R.id.btn_text)).setText("记事本");
+        noteButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
