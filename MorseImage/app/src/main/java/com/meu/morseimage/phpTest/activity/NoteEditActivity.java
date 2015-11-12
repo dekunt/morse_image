@@ -1,6 +1,5 @@
 package com.meu.morseimage.phpTest.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 
-import com.meu.morseimage.BaseActivity;
 import com.meu.morseimage.R;
 import com.meu.morseimage.phpTest.dialog.AlertDialog;
 import com.meu.morseimage.phpTest.dialog.LoadDialog;
@@ -31,7 +29,7 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by dekunt on 15/11/7.
  */
-public class NoteEditActivity extends BaseActivity
+public class NoteEditActivity extends SwipeActivity
 {
     public static final String INTENT_EXTRA_NOTE = "intent_extra_note";
 
@@ -54,14 +52,11 @@ public class NoteEditActivity extends BaseActivity
         if (bean != null)
             intent.putExtra(INTENT_EXTRA_NOTE, bean);
         context.startActivity(intent);
-        if (context instanceof Activity)
-            ((Activity)context).overridePendingTransition(R.anim.push_up_in, R.anim.fade_out_half);
     }
 
     private void superFinish()
     {
         super.finish();
-        overridePendingTransition(R.anim.fade_in_half, R.anim.push_up_out);
     }
 
     @Override
@@ -86,7 +81,7 @@ public class NoteEditActivity extends BaseActivity
                         @Override
                         public void run()
                         {
-                            etContent.setMinHeight(scrollView.getHeight());
+                            etContent.setMinHeight(scrollView.getHeight() + 4);
                         }
                     });
                 }

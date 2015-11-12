@@ -19,6 +19,7 @@ import com.meu.facelayout.views.FaceRelativeLayout;
 import com.meu.morseimage.dialog.ImagesDialog;
 import com.meu.morseimage.phpTest.activity.LoginActivity;
 import com.meu.morseimage.phpTest.activity.NoteListActivity;
+import com.meu.morseimage.phpTest.activity.SwipeActivity;
 import com.meu.morseimage.phpTest.user.UserInfo;
 import com.meu.morseimage.utils.BitmapUtils;
 import com.meu.morseimage.utils.FileUtils;
@@ -29,7 +30,7 @@ import java.io.FileOutputStream;
 /**
  * Created by dekunt on 15/9/30.
  */
-public class MainActivity extends BaseActivity
+public class MainActivity extends SwipeActivity
 {
     ViewGroup shareGroup;
     LinearLayout textLayout;
@@ -138,6 +139,11 @@ public class MainActivity extends BaseActivity
         return false;
     }
 
+    @Override
+    protected boolean isSwipeEnabled()
+    {
+        return false;
+    }
 
 
     // Share
@@ -181,6 +187,7 @@ public class MainActivity extends BaseActivity
             Uri uri = Uri.fromFile(file);
             intent.putExtra(Intent.EXTRA_STREAM, uri);
             startActivity(Intent.createChooser(intent, "请选择"));
+            overridePendingTransition(0, 0);
         } catch (Exception e) {
             e.printStackTrace();
         }

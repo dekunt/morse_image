@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 
-import com.meu.morseimage.BaseActivity;
 import com.meu.morseimage.R;
 import com.meu.morseimage.phpTest.dialog.LoadDialog;
 import com.meu.morseimage.phpTest.http.RequestHelper;
@@ -26,7 +25,7 @@ import java.util.Map;
 /**
  * Created by dekunt on 15/11/5.
  */
-public class LoginActivity extends BaseActivity implements View.OnClickListener
+public class LoginActivity extends SwipeActivity implements View.OnClickListener
 {
     private EditText etUserName;
     private EditText etPassword;
@@ -138,5 +137,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener
     private void onLoginSucceed() {
         NoteListActivity.invoke(this);
         finish();
+        overridePendingTransition(R.anim.none, R.anim.fade_out);
     }
 }

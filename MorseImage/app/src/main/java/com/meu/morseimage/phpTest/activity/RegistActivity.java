@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.meu.morseimage.BaseActivity;
 import com.meu.morseimage.R;
 import com.meu.morseimage.phpTest.dialog.LoadDialog;
 import com.meu.morseimage.phpTest.http.RequestHelper;
@@ -31,7 +30,7 @@ import java.util.Map;
 /**
  * Created by dekunt on 15/11/5.
  */
-public class RegistActivity extends BaseActivity implements View.OnClickListener
+public class RegistActivity extends SwipeActivity implements View.OnClickListener
 {
     private static final String SHARED_PREF_REG_PHONE = "reg_phone";
     private static final String SHARED_PREF_REG_CODE_TIME = "reg_code_time";

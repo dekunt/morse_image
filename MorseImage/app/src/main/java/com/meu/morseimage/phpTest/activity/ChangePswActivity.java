@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.meu.morseimage.BaseActivity;
 import com.meu.morseimage.R;
 import com.meu.morseimage.phpTest.dialog.LoadDialog;
 import com.meu.morseimage.phpTest.http.RequestHelper;
@@ -29,7 +28,7 @@ import java.util.Map;
 /**
  * Created by dekunt on 15/11/5.
  */
-public class ChangePswActivity extends BaseActivity implements View.OnClickListener
+public class ChangePswActivity extends SwipeActivity implements View.OnClickListener
 {
     private static final String SHARED_PREF_PSW_PHONE = "change_psw_phone";
     private static final String SHARED_PREF_PSW_CODE_TIME = "change_psw_code_time";

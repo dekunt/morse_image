@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.ListView;
 
-import com.meu.morseimage.BaseActivity;
 import com.meu.morseimage.R;
 import com.meu.morseimage.phpTest.adapter.NoteListAdapter;
 import com.meu.morseimage.phpTest.dialog.PopupButtonsDialog;
@@ -33,7 +32,7 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by dekunt on 15/11/4.
  */
-public class NoteListActivity extends BaseActivity implements View.OnClickListener
+public class NoteListActivity extends SwipeActivity implements View.OnClickListener
 {
     private static final int PER_PAGE = 10;
 
