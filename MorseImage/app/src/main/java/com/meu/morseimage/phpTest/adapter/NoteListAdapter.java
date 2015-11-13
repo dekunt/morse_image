@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.meu.morseimage.R;
 import com.meu.morseimage.phpTest.activity.NoteEditActivity;
 import com.meu.morseimage.phpTest.user.bean.NoteBean;
+import com.meu.morseimage.phpTest.user.bean.NoteGroupBean;
 import com.meu.morseimage.phpTest.util.StringUtil;
 import com.meu.morseimage.phpTest.view.ListFooterView;
 
@@ -22,6 +23,9 @@ public class NoteListAdapter extends BaseAdapter
 {
     private Activity mContext;
     private ArrayList<NoteBean> mList;
+    private ArrayList<NoteGroupBean> groupList;
+    private ArrayList<String> openedGroups;
+
     private ListFooterView footerView;
     private boolean noMoreData = false;
     private ActionListener actionListener;
@@ -39,7 +43,10 @@ public class NoteListAdapter extends BaseAdapter
     {
         this.mContext = context;
         this.mList = list;
+        this.groupList = NoteGroupBean.groupListFromList(list);
         this.actionListener = listener;
+        openedGroups = new ArrayList<>();
+        openedGroups.add("最近");
     }
 
     public void setNoMoreData(boolean noMoreData)
@@ -69,18 +76,35 @@ public class NoteListAdapter extends BaseAdapter
         isEditing = false;
         for (NoteBean bean : mList)
             bean.checked = false;
-        notifyDataSetChanged();
     }
 
     public boolean isEditing() {
         return isEditing;
     }
 
+    public void notifyDataSetChanged(boolean listChanged, boolean openRecently)
+    {
+        if (listChanged) {
+            groupList = NoteGroupBean.groupListFromList(mList);
+            if (openRecently && !openedGroups.contains("最近"))
+                openedGroups.add("最近");
+            for (NoteGroupBean groupBean : groupList) {
+                if (openedGroups.contains(groupBean.title))
+                    groupBean.isOpen = true;
+            }
+        }
+        notifyDataSetChanged();
+    }
 
     @Override
     public int getCount()
     {
-        int size = (mList == null ? 0 : mList.size());
+        int size = 0;
+        for (NoteGroupBean groupBean : groupList) {
+            size += 1;
+            if (groupBean.isOpen)
+                size += groupBean.group.size();
+        }
         return size == 0 ? 0 : size + 1;
     }
 
@@ -99,7 +123,8 @@ public class NoteListAdapter extends BaseAdapter
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        if (getItemViewType(position) == 1) {
+        int viewType = getItemViewType(position);
+        if (viewType == 2) {
             if (convertView == null) {
                 convertView = new ListFooterView(mContext);
                 convertView.findViewById(R.id.iv_no_more).setOnClickListener(new View.OnClickListener()
@@ -118,6 +143,8 @@ public class NoteListAdapter extends BaseAdapter
                 actionListener.onShowLoading();
             return convertView;
         }
+        else if (viewType == 0)
+            return typeTitleGetView(position, convertView);
 
 
         if (convertView == null) {
@@ -126,7 +153,7 @@ public class NoteListAdapter extends BaseAdapter
         TextView title = (TextView)convertView.findViewById(R.id.title);
         TextView content = (TextView)convertView.findViewById(R.id.content);
         TextView time = (TextView)convertView.findViewById(R.id.time);
-        final NoteBean bean = mList.get(position);
+        final NoteBean bean = getNoteBean(position);
         time.setText(StringUtil.toShowTime(bean.createTime, false));
         title.setText(TextUtils.isEmpty(bean.title) ? "(无主题)" : bean.title);
         content.setText(TextUtils.isEmpty(bean.getSimpleContent()) ? "(无摘要)" : bean.getSimpleContent());
@@ -175,17 +202,82 @@ public class NoteListAdapter extends BaseAdapter
         return convertView;
     }
 
+    private View typeTitleGetView(int position, View convertView)
+    {
+        if (convertView == null) {
+            convertView = View.inflate(mContext, R.layout.view_note_group_title, null);
+        }
+        TextView title = (TextView)convertView.findViewById(R.id.title);
+        TextView count = (TextView)convertView.findViewById(R.id.count);
+        View arrow = convertView.findViewById(R.id.iv_arrow);
+        final NoteGroupBean groupBean = groupList.get(getGroupIndex(position));
+        title.setText(groupBean.title);
+        count.setText("" + groupBean.group.size());
+        arrow.setSelected(groupBean.isOpen);
+        convertView.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                groupBean.isOpen = !groupBean.isOpen;
+                notifyDataSetChanged();
+            }
+        });
+        return convertView;
+    }
+
+    private int getGroupIndex(int position)
+    {
+        int size = 0;
+        int index = 0;
+        for (; index < groupList.size(); index++) {
+            NoteGroupBean groupBean = groupList.get(index);
+            size += 1;
+            if (groupBean.isOpen)
+                size += groupBean.group.size();
+            if (position < size)
+                return index;
+        }
+        return size;
+    }
+
+    private NoteBean getNoteBean(int position)
+    {
+        int size = 0;
+        int index = 0;
+        for (; index < groupList.size(); index++) {
+            NoteGroupBean groupBean = groupList.get(index);
+            size += 1;
+            if (groupBean.isOpen) {
+                int groupSize = groupBean.group.size();
+                if (position - size < groupSize)
+                    return groupBean.group.get(position - size);
+                size += groupSize;
+            }
+        }
+        throw new NullPointerException("position not correct");
+    }
+
+
     @Override
     public int getViewTypeCount()
     {
-        return 2;
+        return 3;
     }
 
     @Override
     public int getItemViewType(int position)
     {
-        if (position < getList().size())
-            return 0;
-        return 1;
+        int size = 0;
+        for (NoteGroupBean groupBean : groupList) {
+            size += 1;
+            if (position < size)
+                return 0;
+            if (groupBean.isOpen)
+                size += groupBean.group.size();
+            if (position < size)
+                return 1;
+        }
+        return 2;
     }
 }

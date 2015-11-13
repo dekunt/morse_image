@@ -34,7 +34,7 @@ import de.greenrobot.event.EventBus;
  */
 public class NoteListActivity extends SwipeActivity implements View.OnClickListener
 {
-    private static final int PER_PAGE = 10;
+    private static final int PER_PAGE = 100;
 
     private NoteListAdapter adapter;
     private ListView listView;
@@ -144,7 +144,7 @@ public class NoteListActivity extends SwipeActivity implements View.OnClickListe
     {
         for (NoteBean bean : checkedItems)
             adapter.getList().remove(bean);
-        quitEditState();
+        quitEditState(true);
 
         String deleteIds = checkedItems.get(0).noteId;
         for (int i = 1; i < checkedItems.size(); i++) {
@@ -163,16 +163,17 @@ public class NoteListActivity extends SwipeActivity implements View.OnClickListe
     public void onBackPressed()
     {
         if (adapter.isEditing())
-            quitEditState();
+            quitEditState(false);
         else
             super.onBackPressed();
     }
 
-    private void quitEditState()
+    private void quitEditState(boolean listChanged)
     {
         setLeftButton(R.mipmap.ic_arrow_back, null);
         setRightButton(R.mipmap.ic_edit, NoteListActivity.this);
         adapter.quitEdit();
+        adapter.notifyDataSetChanged(listChanged, false);
     }
 
     @SuppressWarnings("unused")
@@ -186,7 +187,7 @@ public class NoteListActivity extends SwipeActivity implements View.OnClickListe
             list.set(oldIndex, bean);
         else
             list.add(0, bean);
-        adapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged(oldIndex < 0, true);
         listView.setSelection(0);
     }
 
@@ -274,6 +275,6 @@ public class NoteListActivity extends SwipeActivity implements View.OnClickListe
         if (tmplist != null)
             list.addAll(tmplist);
         viewNodata.setVisibility(list.isEmpty() ? View.VISIBLE : View.GONE);
-        adapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged(tmplist != null && !tmplist.isEmpty(), false);
     }
 }
