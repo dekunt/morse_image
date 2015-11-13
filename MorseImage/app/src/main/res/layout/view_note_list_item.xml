@@ -29,6 +29,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
+                android:singleLine="true"
                 android:textColor="@color/text_dark"/>
 
             <TextView
@@ -36,6 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
+                android:singleLine="true"
                 android:textSize="12sp"
                 android:text="2014/12/23"
                 android:textColor="@color/text_hint"

@@ -183,8 +183,9 @@ public class NoteListActivity extends SwipeActivity implements View.OnClickListe
         ArrayList<NoteBean> list = adapter.getList();
         int oldIndex = list.indexOf(bean);
         if (oldIndex >= 0)
-            list.remove(oldIndex);
-        list.add(0, bean);
+            list.set(oldIndex, bean);
+        else
+            list.add(0, bean);
         adapter.notifyDataSetChanged();
         listView.setSelection(0);
     }
