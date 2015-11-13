@@ -41,7 +41,7 @@
         $pdo->exec("SET collation_connection = utf8mb4_unicode_ci");
         $pdo->exec("SET collation_database = utf8mb4_unicode_ci");
         $pdo->exec("SET collation_server = utf8mb4_unicode_ci");
-
+        
         // 检查用户
         $query = $pdo->prepare("SELECT * FROM user WHERE uid=?");
         if ($query->execute(array($uid)) && $row = $query->fetch()) {
