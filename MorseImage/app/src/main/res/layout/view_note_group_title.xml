@@ -52,9 +52,4 @@
         android:layout_height="1px"
         android:layout_gravity="bottom"
         android:background="@color/action_bar_line"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/action_bar_line"/>
 </FrameLayout>

@@ -220,6 +220,10 @@ public class NoteListAdapter extends BaseAdapter
             public void onClick(View v)
             {
                 groupBean.isOpen = !groupBean.isOpen;
+                if (!groupBean.isOpen)
+                    openedGroups.remove(groupBean.title);
+                else if (!openedGroups.contains(groupBean.title))
+                    openedGroups.add(groupBean.title);
                 notifyDataSetChanged();
             }
         });
