@@ -230,7 +230,7 @@ public class NoteListActivity extends SwipeActivity implements View.OnClickListe
         int size = adapter.getList().size();
         String timeLine = "";
         if (size > 0)
-            timeLine = adapter.getList().get(size - 1).modifyTime;
+            timeLine = adapter.getList().get(size - 1).createTime;
         params.put("timeLine", timeLine);
         params.put("perPage", PER_PAGE);
         ServerRequest request = new ServerRequest<>(

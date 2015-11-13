@@ -53,11 +53,11 @@
         else {
             $perPage = 20;
         }
-        $query = $pdo->prepare("SELECT * FROM note WHERE uid=? && modifyTime<? ORDER BY modifyTime DESC LIMIT ?");
+        $query = $pdo->prepare("SELECT * FROM note WHERE uid=? && createTime<? ORDER BY createTime DESC LIMIT ?");
         $list = array();
         if ($query->execute(array($uid, $timeLine, $perPage))) {
             foreach ($query->fetchAll() as $row) {
-                $note = array('noteId' => $row['noteId'], 'title' => $row['title'], 'content' => $row['content'], 'modifyTime' => $row['modifyTime']);
+                $note = array('noteId' => $row['noteId'], 'title' => $row['title'], 'content' => $row['content'], 'createTime' => $row['createTime']);
                 array_push($list, $note);
             }
         }

@@ -12,7 +12,7 @@ public class NoteBean implements Serializable
     public String title;
     private String content;
     private String simpleContent;
-    public String modifyTime;
+    public String createTime;
 
 
     public String getContent() {

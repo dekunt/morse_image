@@ -48,17 +48,17 @@
 
         // 检查noteId
         if ($noteId) {
-            $query = $pdo->prepare("SELECT noteId FROM note WHERE noteId=?");
+            $query = $pdo->prepare("SELECT noteId, createTime FROM note WHERE noteId=?");
             if ($query->execute(array($noteId)) && $row = $query->fetch()) {
                 onGotNote($row);
             }
         }
 
         $currentTime = time();
-        $query = $pdo->prepare("INSERT INTO note (uid, title, content, modifyTime) VALUES (?, ?, ?, ?)");
+        $query = $pdo->prepare("INSERT INTO note (uid, title, content, createTime) VALUES (?, ?, ?, ?)");
         if ($query->execute(array($uid, $title, $content, $currentTime))) {
             $noteId = $pdo->lastInsertId();
-            $data = array('noteId' => "{$noteId}", 'uid' => "{$uid}", 'title' => $title, 'content' => $content, 'modifyTime' => $currentTime);
+            $data = array('noteId' => "{$noteId}", 'uid' => "{$uid}", 'title' => $title, 'content' => $content, 'createTime' => $currentTime);
             done(0);
         }
         done(1);
@@ -68,10 +68,9 @@
     {
         global $pdo, $data, $title, $content, $uid;
         $noteId = $note['noteId'];
-        $currentTime = time();
-        $query = $pdo->prepare("UPDATE note SET title=?, content=?, modifyTime=? WHERE noteId=?");
-        if ($query->execute(array($title, $content, $currentTime, $noteId))) {
-            $data = array('noteId' => "{$noteId}", 'uid' => $uid, 'title' => $title, 'content' => $content, 'modifyTime' => $currentTime);
+        $query = $pdo->prepare("UPDATE note SET title=?, content=? WHERE noteId=?");
+        if ($query->execute(array($title, $content, $noteId))) {
+            $data = array('noteId' => "{$noteId}", 'uid' => $uid, 'title' => $title, 'content' => $content, 'createTime' => $note['createTime']);
             done(0);
         }
         done(1);

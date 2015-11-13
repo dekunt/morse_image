@@ -127,7 +127,7 @@ public class NoteListAdapter extends BaseAdapter
         TextView content = (TextView)convertView.findViewById(R.id.content);
         TextView time = (TextView)convertView.findViewById(R.id.time);
         final NoteBean bean = mList.get(position);
-        time.setText(StringUtil.toShowTime(bean.modifyTime, false));
+        time.setText(StringUtil.toShowTime(bean.createTime, false));
         title.setText(TextUtils.isEmpty(bean.title) ? "(无主题)" : bean.title);
         content.setText(TextUtils.isEmpty(bean.getSimpleContent()) ? "(无摘要)" : bean.getSimpleContent());
         final View itemGroup = convertView.findViewById(R.id.item_group);
