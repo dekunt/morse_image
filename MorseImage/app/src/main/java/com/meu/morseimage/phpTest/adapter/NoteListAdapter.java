@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.meu.morseimage.R;
 import com.meu.morseimage.phpTest.activity.NoteEditActivity;
 import com.meu.morseimage.phpTest.user.bean.NoteBean;
+import com.meu.morseimage.phpTest.util.StringUtil;
 import com.meu.morseimage.phpTest.view.ListFooterView;
 
 import java.util.ArrayList;
@@ -124,7 +125,9 @@ public class NoteListAdapter extends BaseAdapter
         }
         TextView title = (TextView)convertView.findViewById(R.id.title);
         TextView content = (TextView)convertView.findViewById(R.id.content);
+        TextView time = (TextView)convertView.findViewById(R.id.time);
         final NoteBean bean = mList.get(position);
+        time.setText(StringUtil.toShowTime(bean.modifyTime, false));
         title.setText(TextUtils.isEmpty(bean.title) ? "(无主题)" : bean.title);
         content.setText(TextUtils.isEmpty(bean.getSimpleContent()) ? "(无摘要)" : bean.getSimpleContent());
         final View itemGroup = convertView.findViewById(R.id.item_group);

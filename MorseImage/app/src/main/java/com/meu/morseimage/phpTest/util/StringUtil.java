@@ -3,12 +3,91 @@ package com.meu.morseimage.phpTest.util;
 import android.text.TextUtils;
 
 import java.security.MessageDigest;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
 public class StringUtil
 {
+    /**
+     * 时间显示格式，时间戳单位：秒
+     */
+    static public String toShowTime(String timeStamp, boolean detail)
+    {
+        if (TextUtils.isEmpty(timeStamp))
+            return "";
+        try {
+            long time = Long.parseLong(timeStamp);
+            return toShowTime(new Date(time * 1000), detail);
+        }
+        catch (NumberFormatException ignored) {
+        }
+        return "";
+    }
+
+    static public String toShowTime(Date date, boolean detail)
+    {
+        int dayCount = getDayCount(date);
+        int yeahCount = getYearCount(date);
+        String yeahMonthDay = new SimpleDateFormat("yyyy年M月d日", Locale.CANADA).format(date);
+        String monthDay = yeahMonthDay.substring(5, yeahMonthDay.length());
+        String hourMinute = new SimpleDateFormat("K:mm", Locale.CANADA).format(date);
+        String am = new SimpleDateFormat("aa", Locale.CANADA).format(date);
+        if (am.contains("A"))
+            hourMinute = "上午" + hourMinute;
+        else if (hourMinute.startsWith("0:"))
+            hourMinute = "中午" + hourMinute.replace("0:", "12:");
+        else
+            hourMinute = "下午" + hourMinute;
+
+        if (dayCount < 2) {
+            String prefix = dayCount == 0 ? "今天 " : "昨天 ";
+            String detailString = detail ? " " + (yeahCount == 0 ? monthDay : yeahMonthDay) : "";
+            return prefix + hourMinute + detailString;
+        }
+        else {
+            String detailString = detail ? hourMinute : "";
+            return (yeahCount == 0 ? monthDay : yeahMonthDay) + detailString;
+        }
+    }
+
+    static private int getDayCount(Date date)
+    {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        Date today = cal.getTime();
+
+        cal.setTime(date);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        date = cal.getTime();
+
+        long days = TimeUnit.MILLISECONDS.toDays(today.getTime() - date.getTime());
+        return (int)days;
+    }
+
+    static private int getYearCount(Date date)
+    {
+        try {
+            long yeah = Long.parseLong(new SimpleDateFormat("yyyy", Locale.CANADA).format(date));
+            long currentYeah = Long.parseLong(new SimpleDateFormat("yyyy", Locale.CANADA).format(new Date()));
+            return (int)(currentYeah - yeah);
+        }
+        catch (Exception e) {
+            return -1;
+        }
+    }
+
 
     /**
      * 判断是否含有中文
