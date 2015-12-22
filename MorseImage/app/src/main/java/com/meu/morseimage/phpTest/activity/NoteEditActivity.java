@@ -20,6 +20,7 @@ import com.meu.morseimage.phpTest.http.ServerRequest;
 import com.meu.morseimage.phpTest.http.UrlPath;
 import com.meu.morseimage.phpTest.user.bean.NoteBean;
 import com.meu.morseimage.phpTest.util.ToastUtil;
+import com.meu.morseimage.utils.AndroidBug5497Workaround;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -63,6 +64,7 @@ public class NoteEditActivity extends SwipeActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        AndroidBug5497Workaround.assistActivity(this);
         setContentView(R.layout.activity_note_edit);
         etTitle = (EditText) findViewById(R.id.et_title);
         etContent = (EditText) findViewById(R.id.et_content);
