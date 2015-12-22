@@ -4,5 +4,5 @@
           android:drawable="@color/btn_dialog_pressed"/>
     <item android:state_selected="true"
           android:drawable="@color/btn_dialog_pressed"/>
-    <item android:drawable="@color/white"/>
+    <item android:drawable="@color/list_item_white"/>
 </selector>

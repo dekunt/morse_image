@@ -13,6 +13,7 @@
     <color name="grey_pressed">#D5D5D5</color>
     <color name="grey_line">#cfcfcf</color>
 
+    <color name="list_item_white">#ffffff</color>
     <color name="list_item_pressed_grey">#eeeeee</color>
     <color name="loading_dialog_bg">#22000000</color>
     <color name="btn_dialog_pressed">#EBF5FD</color>

@@ -85,7 +85,7 @@ public class SwipeActivity extends BaseActivity
                     ViewGroup.LayoutParams.MATCH_PARENT);
             root.removeView(content);
             // 留出状态栏位置
-            this.setPadding(0, getStatusBarHeight(), 0, 0);
+            this.setPadding(0, android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.KITKAT ? 0 : getStatusBarHeight(), 0, 0);
             this.addView(content, params2);
             root.addView(this, params);
         }
