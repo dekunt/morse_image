@@ -161,8 +161,7 @@ public class NoteListAdapter extends BaseAdapter
         itemGroup.post(new Runnable()
         {
             @Override
-            public void run()
-            {
+            public void run() {
                 itemGroup.setSelected(isEditing && bean.checked);
             }
         });
@@ -212,7 +211,7 @@ public class NoteListAdapter extends BaseAdapter
         View arrow = convertView.findViewById(R.id.iv_arrow);
         final NoteGroupBean groupBean = groupList.get(getGroupIndex(position));
         title.setText(groupBean.title);
-        count.setText("" + groupBean.group.size());
+        count.setText(String.format("%d", groupBean.group.size()));
         arrow.setSelected(groupBean.isOpen);
         convertView.setOnClickListener(new View.OnClickListener()
         {
@@ -225,6 +224,14 @@ public class NoteListAdapter extends BaseAdapter
                 else if (!openedGroups.contains(groupBean.title))
                     openedGroups.add(groupBean.title);
                 notifyDataSetChanged();
+                // 编辑状态时，展开后要更新选中状态
+                v.post(new Runnable()
+                {
+                    @Override
+                    public void run() {
+                        notifyDataSetChanged();
+                    }
+                });
             }
         });
         return convertView;
