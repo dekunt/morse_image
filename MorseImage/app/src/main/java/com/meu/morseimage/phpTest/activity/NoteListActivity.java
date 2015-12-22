@@ -183,8 +183,12 @@ public class NoteListActivity extends SwipeActivity implements View.OnClickListe
         NoteBean bean = event.noteBean;
         ArrayList<NoteBean> list = adapter.getList();
         int oldIndex = list.indexOf(bean);
-        if (oldIndex >= 0)
-            list.set(oldIndex, bean);
+        if (oldIndex >= 0) {
+            NoteBean oldBean = list.get(oldIndex);
+            oldBean.title = bean.title;
+            oldBean.setContent(bean.getContent());
+            oldBean.createTime = bean.createTime;
+        }
         else
             list.add(0, bean);
         adapter.notifyDataSetChanged(oldIndex < 0, true);
