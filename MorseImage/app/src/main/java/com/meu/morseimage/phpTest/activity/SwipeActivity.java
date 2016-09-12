@@ -16,14 +16,13 @@ import com.meu.morseimage.R;
 
 /**
  * Created by dekunt on 15/9/15.
+ * 右划返回
  */
-public class SwipeActivity extends BaseActivity
-{
+public class SwipeActivity extends BaseActivity {
     private SwipeLayout swipeLayout;
 
     // 不需要滑动关闭的Activity，重写该函数
-    protected boolean isSwipeEnabled()
-    {
+    protected boolean isSwipeEnabled() {
         return true;
     }
 
@@ -42,12 +41,13 @@ public class SwipeActivity extends BaseActivity
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(R.anim.half_left_in, R.anim.right_out);
+        if (isSwipeEnabled()) {
+            overridePendingTransition(R.anim.half_left_in, R.anim.right_out);
+        }
     }
 
     @Override
-    public void startActivity(Intent intent)
-    {
+    public void startActivity(Intent intent) {
         super.startActivity(intent);
         overridePendingTransition(R.anim.right_in, R.anim.half_left_out);
     }
@@ -75,7 +75,7 @@ public class SwipeActivity extends BaseActivity
             // 设成clickable，否则可能点到SwipeLayout
             content.setClickable(true);
             if (content instanceof ViewGroup) {
-                ViewGroup viewGroup = (ViewGroup)content;
+                ViewGroup viewGroup = (ViewGroup) content;
                 for (int i = viewGroup.getChildCount() - 1; i >= 0; i--)
                     viewGroup.getChildAt(i).setClickable(true);
             }
@@ -89,7 +89,6 @@ public class SwipeActivity extends BaseActivity
             this.addView(content, params2);
             root.addView(this, params);
         }
-
 
 
         /**
@@ -112,16 +111,14 @@ public class SwipeActivity extends BaseActivity
             return movedToRight || super.onInterceptTouchEvent(ev);
         }
 
-        private final class GestureListener extends GestureDetector.SimpleOnGestureListener
-        {
+        private final class GestureListener extends GestureDetector.SimpleOnGestureListener {
             private int swipeDistThreshold;
             private int swipeVelocThreshold;
 
-            public GestureListener(Context context)
-            {
+            public GestureListener(Context context) {
                 float density = context.getResources().getDisplayMetrics().density;
-                swipeDistThreshold = (int)(density * 70);
-                swipeVelocThreshold = (int)(density * 60);
+                swipeDistThreshold = (int) (density * 70);
+                swipeVelocThreshold = (int) (density * 60);
             }
 
             @Override

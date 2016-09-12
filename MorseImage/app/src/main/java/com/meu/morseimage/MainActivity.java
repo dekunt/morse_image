@@ -29,9 +29,9 @@ import java.io.FileOutputStream;
 
 /**
  * Created by dekunt on 15/9/30.
+ * 首页
  */
-public class MainActivity extends SwipeActivity
-{
+public class MainActivity extends SwipeActivity {
     ViewGroup shareGroup;
     LinearLayout textLayout;
     ImageView imageView;
@@ -40,28 +40,23 @@ public class MainActivity extends SwipeActivity
     private int imageWidth;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         float density = getResources().getDisplayMetrics().density;
         imageWidth = (int) (IMAGE_WIDTH * density);
 
         setContentView(R.layout.activity_main);
-        shareGroup = (ViewGroup)findViewById(R.id.share_group);
-        textLayout = (LinearLayout)findViewById(R.id.text_layout);
-        imageView = (ImageView)findViewById(R.id.image_view);
+        shareGroup = (ViewGroup) findViewById(R.id.share_group);
+        textLayout = (LinearLayout) findViewById(R.id.text_layout);
+        imageView = (ImageView) findViewById(R.id.image_view);
 
         resetImage(R.mipmap.ic_face_02);
-        shareGroup.setOnClickListener(new View.OnClickListener()
-        {
+        shareGroup.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                final ImagesDialog dialog = new ImagesDialog(MainActivity.this, new FaceRelativeLayout.OnFaceClickedListener()
-                {
+            public void onClick(View v) {
+                final ImagesDialog dialog = new ImagesDialog(MainActivity.this, new FaceRelativeLayout.OnFaceClickedListener() {
                     @Override
-                    public void onFaceClick(int resId)
-                    {
+                    public void onFaceClick(int resId) {
                         resetImage(resId);
                     }
                 });
@@ -69,23 +64,19 @@ public class MainActivity extends SwipeActivity
             }
         });
 
-        final EditText editText = (EditText)findViewById(R.id.edit_text);
-        editText.addTextChangedListener(new TextWatcher()
-        {
+        final EditText editText = (EditText) findViewById(R.id.edit_text);
+        editText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after)
-            {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count)
-            {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
 
             @Override
-            public void afterTextChanged(Editable s)
-            {
+            public void afterTextChanged(Editable s) {
                 if (s != null)
                     onEditTextChanged(s.toString());
             }
@@ -93,13 +84,11 @@ public class MainActivity extends SwipeActivity
 
 
         View noteButton = findViewById(R.id.note_button);
-        ((ImageView)noteButton.findViewById(R.id.btn_image)).setImageResource(R.mipmap.ic_note);
-        ((TextView)noteButton.findViewById(R.id.btn_text)).setText("记事本");
-        noteButton.setOnClickListener(new View.OnClickListener()
-        {
+        ((ImageView) noteButton.findViewById(R.id.btn_image)).setImageResource(R.mipmap.ic_note);
+        ((TextView) noteButton.findViewById(R.id.btn_text)).setText("记事本");
+        noteButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 if (UserInfo.getInstance().isLogin())
                     NoteListActivity.invoke(MainActivity.this);
                 else
@@ -108,43 +97,38 @@ public class MainActivity extends SwipeActivity
         });
     }
 
-    private void onEditTextChanged(String text)
-    {
+    private void onEditTextChanged(String text) {
         int length = text.length();
         int currentLength = textLayout.getChildCount();
         for (int i = 0; i < currentLength && i < length; i++) {
-            setTextValue((ViewGroup)textLayout.getChildAt(i), text.charAt(i));
+            setTextValue((ViewGroup) textLayout.getChildAt(i), text.charAt(i));
         }
         for (int i = currentLength; i < length; i++) {
             setTextValue(addTextGroup(), text.charAt(i));
         }
-        for (; length < textLayout.getChildCount();) {
+        for (; length < textLayout.getChildCount(); ) {
             textLayout.removeViewAt(length);
         }
     }
 
-    private void setTextValue(ViewGroup viewGroup, char text)
-    {
-        ((TextView)viewGroup.findViewById(R.id.text_top)).setText("" + text);
-        ((TextView)viewGroup.findViewById(R.id.text_bottom)).setText(HanziToMorse.getMorse("" + text));
+    private void setTextValue(ViewGroup viewGroup, char text) {
+        ((TextView) viewGroup.findViewById(R.id.text_top)).setText(String.valueOf(text));
+        ((TextView) viewGroup.findViewById(R.id.text_bottom)).setText(HanziToMorse.getMorse("" + text));
     }
 
-    private ViewGroup addTextGroup()
-    {
+    private ViewGroup addTextGroup() {
         int index = textLayout.getChildCount();
         getLayoutInflater().inflate(R.layout.view_double_text, textLayout);
-        return (ViewGroup)textLayout.getChildAt(index);
+        return (ViewGroup) textLayout.getChildAt(index);
     }
 
     @Override
-    protected boolean needLeftButton()
-    {
+    protected boolean needLeftButton() {
         return false;
     }
 
     @Override
-    protected boolean isSwipeEnabled()
-    {
+    protected boolean isSwipeEnabled() {
         return false;
     }
 
@@ -152,27 +136,22 @@ public class MainActivity extends SwipeActivity
     // Share
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         boolean result = super.onCreateOptionsMenu(menu);
         setShareButton();
         return result;
     }
 
-    private void setShareButton()
-    {
-        setRightButton(R.mipmap.ic_share, new View.OnClickListener()
-        {
+    private void setShareButton() {
+        setRightButton(R.mipmap.ic_share, new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 onShare();
             }
         });
     }
 
-    private void onShare()
-    {
+    private void onShare() {
         Bitmap bitmap = BitmapUtils.getBitmapFromView(shareGroup);
         File file = FileUtils.createFileExternalStorage("morseImage", ".png");
         if (file == null)
@@ -197,18 +176,15 @@ public class MainActivity extends SwipeActivity
     }
 
 
-
     // Image
 
-    private void resetImage(int resId)
-    {
+    private void resetImage(int resId) {
         Bitmap icon = BitmapFactory.decodeResource(getResources(), resId);
         resetImage(icon);
     }
 
-    private void resetImage(Bitmap bitmap)
-    {
-        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams)imageView.getLayoutParams();
+    private void resetImage(Bitmap bitmap) {
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView.getLayoutParams();
         layoutParams.width = imageWidth;
         layoutParams.height = imageWidth * bitmap.getHeight() / bitmap.getWidth();
         imageView.setLayoutParams(layoutParams);
