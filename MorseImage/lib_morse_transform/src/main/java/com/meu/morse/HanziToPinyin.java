@@ -1,4 +1,4 @@
-package com.meu.morseimage;
+package com.meu.morse;
 
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;

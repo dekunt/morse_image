@@ -1,4 +1,4 @@
-package com.meu.morseimage;
+package com.meu.morse;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -74,9 +74,10 @@ public class HanziToMorse
         morseMap.put('8', "---..");
         morseMap.put('9', "----.");
         morseMap.put('0', "-----");
+        morseMap.put('.', ".-.-.-");
+        morseMap.put('+', "-.-.-.");
         morseMap.put(',', "--..--");
         morseMap.put('!', "-.-.--");
-        morseMap.put('.', ".-.-.-");
         morseMap.put('?', "..--..");
         morseMap.put(' ', "-..-.");
         morseMap.put('/', "-..-.");

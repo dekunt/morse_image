@@ -1,1 +1,1 @@
-include ':app', ':rubberindicator', ':facelayout'
+include ':app', ':rubberindicator', ':facelayout', ':lib_morse_transform'
