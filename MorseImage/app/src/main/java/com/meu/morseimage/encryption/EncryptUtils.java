@@ -2,7 +2,7 @@ package com.meu.morseimage.encryption;
 
 import android.text.TextUtils;
 
-import com.meu.morse.HanziToPinyin;
+import com.meu.morseimage.hanziUtils.HanziToPinyin;
 
 import java.util.HashMap;
 import java.util.Map;

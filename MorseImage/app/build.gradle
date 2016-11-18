@@ -43,5 +43,4 @@ dependencies {
     compile rootProject.ext.dependencies["volley"]
     compile rootProject.ext.dependencies["gson"]
     compile project(':facelayout')
-    compile project(':lib_morse_transform')
 }

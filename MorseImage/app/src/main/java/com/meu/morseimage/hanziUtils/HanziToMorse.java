@@ -1,4 +1,4 @@
-package com.meu.morse;
+package com.meu.morseimage.hanziUtils;
 
 import java.util.HashMap;
 import java.util.Map;

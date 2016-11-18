@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.meu.facelayout.views.FaceRelativeLayout;
-import com.meu.morse.HanziToMorse;
+import com.meu.morseimage.hanziUtils.HanziToMorse;
 import com.meu.morseimage.dialog.ImagesDialog;
 import com.meu.morseimage.encryption.EncryptActivity;
 import com.meu.morseimage.phpTest.activity.LoginActivity;
