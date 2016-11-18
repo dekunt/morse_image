@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-    android:background="@color/white_level_1">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_level_1"
+    android:orientation="vertical">
 
     <com.meu.facelayout.views.AutoTransparentFrameLayout
         android:id="@+id/share_group"
@@ -23,19 +23,19 @@
                 android:id="@+id/image_view"
                 android:layout_width="160dp"
                 android:layout_height="160dp"
-                android:src="@mipmap/ic_face_02"
                 android:layout_gravity="center"
                 android:scaleType="fitCenter"
-                tools:ignore="ContentDescription"/>
+                android:src="@mipmap/ic_face_02"
+                tools:ignore="ContentDescription" />
 
             <LinearLayout
                 android:id="@+id/text_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|bottom"
                 android:orientation="horizontal"
                 android:paddingLeft="4dp"
-                android:paddingRight="4dp"
-                android:layout_gravity="center_horizontal|bottom"/>
+                android:paddingRight="4dp" />
 
         </LinearLayout>
     </com.meu.facelayout.views.AutoTransparentFrameLayout>
@@ -47,11 +47,11 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
-        android:textColor="@color/text_dark"
-        android:textColorHint="@color/text_hint"
-        android:hint="Morse翻译框"
         android:background="@drawable/bg_edit_text"
-        android:inputType="text"/>
+        android:hint="Morse翻译框"
+        android:inputType="text"
+        android:textColor="@color/text_dark"
+        android:textColorHint="@color/text_hint" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -60,39 +60,41 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:layout_marginBottom="60dp"
-            android:orientation="horizontal"
-            android:layout_gravity="bottom">
+            android:orientation="horizontal">
 
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
-            <include layout="@layout/view_circle_button"/>
+            <include layout="@layout/view_circle_button" />
 
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <include
                 android:id="@+id/note_button"
-                layout="@layout/view_circle_button"/>
+                layout="@layout/view_circle_button" />
 
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
-            <include layout="@layout/view_circle_button"/>
+            <include
+                android:id="@+id/encryption_button"
+                layout="@layout/view_circle_button" />
 
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
         </LinearLayout>
     </FrameLayout>
-    
+
 </LinearLayout>

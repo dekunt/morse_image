@@ -52,6 +52,10 @@
             android:label="@string/regist_title"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:name=".encryption.EncryptActivity"
+            android:label="@string/encryption"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

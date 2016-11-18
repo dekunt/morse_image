@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.meu.facelayout.views.FaceRelativeLayout;
 import com.meu.morse.HanziToMorse;
 import com.meu.morseimage.dialog.ImagesDialog;
+import com.meu.morseimage.encryption.EncryptActivity;
 import com.meu.morseimage.phpTest.activity.LoginActivity;
 import com.meu.morseimage.phpTest.activity.NoteListActivity;
 import com.meu.morseimage.phpTest.activity.SwipeActivity;
@@ -83,10 +84,14 @@ public class MainActivity extends SwipeActivity {
             }
         });
 
+        setupButtons();
+    }
 
+    // 功能按钮
+    private void setupButtons() {
         View noteButton = findViewById(R.id.note_button);
         ((ImageView) noteButton.findViewById(R.id.btn_image)).setImageResource(R.mipmap.ic_note);
-        ((TextView) noteButton.findViewById(R.id.btn_text)).setText("记事本");
+        ((TextView) noteButton.findViewById(R.id.btn_text)).setText(R.string.note_book);
         noteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,6 +99,15 @@ public class MainActivity extends SwipeActivity {
                     NoteListActivity.invoke(MainActivity.this);
                 else
                     LoginActivity.invoke(MainActivity.this);
+            }
+        });
+
+        View encryptButton = findViewById(R.id.encryption_button);
+        ((TextView) encryptButton.findViewById(R.id.btn_text)).setText(R.string.encryption);
+        encryptButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EncryptActivity.invoke(MainActivity.this);
             }
         });
     }

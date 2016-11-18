@@ -5,4 +5,16 @@
     <string name="regist_title">注册</string>
     <string name="note_list_title">我的记事</string>
     <string name="note_edit_title">记事</string>
+    <string name="note_book">记事本</string>
+    
+    
+    <!-- 加密/解密 -->
+    <string name="encryption">五层加密</string>
+    <string name="encrypt_step_0">原文(过滤掉数字和符号)</string>
+    <string name="encrypt_step_1">1. 倒序</string>
+    <string name="encrypt_step_2">2. 栅栏加密</string>
+    <string name="encrypt_step_3">3. 全键盘字母代入</string>
+    <string name="encrypt_step_4">4. 拼音9键代入(全数字)</string>
+    <string name="encrypt_step_5">5. 摩尔斯电码</string>
+    
 </resources>
