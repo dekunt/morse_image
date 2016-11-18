@@ -42,7 +42,6 @@ dependencies {
     compile rootProject.ext.dependencies["appcompat"]
     compile rootProject.ext.dependencies["volley"]
     compile rootProject.ext.dependencies["gson"]
-    compile files('libs/eventbus-2.4.0.jar')
     compile project(':facelayout')
     compile project(':lib_morse_transform')
 }
