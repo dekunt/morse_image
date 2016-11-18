@@ -11,7 +11,7 @@ public class HanziToMorse
     private static Map<Character, String> morseMap;
 
     /*汉字转为莫尔斯电码*/
-    public static String getMorse(String str)
+    public static String getMorse(char str)
     {
         char[] c = HanziToPinyin.getPinYin(str).toCharArray();
         StringBuilder sb = new StringBuilder();

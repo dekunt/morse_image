@@ -128,7 +128,7 @@ public class MainActivity extends SwipeActivity {
 
     private void setTextValue(ViewGroup viewGroup, char text) {
         ((TextView) viewGroup.findViewById(R.id.text_top)).setText(String.valueOf(text));
-        ((TextView) viewGroup.findViewById(R.id.text_bottom)).setText(HanziToMorse.getMorse("" + text));
+        ((TextView) viewGroup.findViewById(R.id.text_bottom)).setText(HanziToMorse.getMorse(text));
     }
 
     private ViewGroup addTextGroup() {

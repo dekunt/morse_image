@@ -154,10 +154,7 @@ public class EncryptUtils {
         if (TextUtils.isEmpty(src)) {
             return "";
         }
-        if (checkHanzi(src)) {
-            src = HanziToPinyin.getPinYin(src);
-        }
-        src = src.toLowerCase();
+        src = HanziToPinyin.getPinYin(src);
         String result = "";
         for (int i = 0; i < src.length(); i++) {
             char ch = src.charAt(i);
@@ -196,20 +193,6 @@ public class EncryptUtils {
             }
         }
         return result;
-    }
-
-    // 检查是否"可能有汉字"（避免过多使用汉字转拼音）
-    private static boolean checkHanzi(String src) {
-        if (TextUtils.isEmpty(src)) {
-            return false;
-        }
-        for (int i = 0; i < src.length(); i++) {
-            char ch = src.charAt(i);
-            if (ch > 'z') {
-                return true;
-            }
-        }
-        return false;
     }
 
     private static String append(String str, char ch) {
